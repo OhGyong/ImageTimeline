@@ -3,20 +3,14 @@ package com.example.imagerecordapp
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.database.Cursor
-import android.media.ExifInterface
-import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import java.io.File
 import java.sql.Date
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,11 +22,11 @@ class MainActivity : AppCompatActivity() {
     private val resultListener =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
 
-            var cursor: Cursor = contentResolver.query(it.data!!.data!!,null,null,null,null)!!
+            val cursor: Cursor = contentResolver.query(it.data!!.data!!,null,null,null,null)!!
             cursor.moveToFirst()
-            var path = cursor.getLong(3) // 날짜 정보
+            val path = cursor.getLong(3) // 날짜 정보
 
-            var date = Date((path)) // 날짜 타입으로 변환
+            val date = Date((path)) // 날짜 타입으로 변환
             println("날짜 : $date")
 
             try{
