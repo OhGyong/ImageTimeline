@@ -30,6 +30,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    // DataBinding 의존성 추가
+    buildFeatures {
+        dataBinding true
+    }
 }
 
 dependencies {
@@ -45,6 +50,12 @@ dependencies {
 
     // Coroutines 의존성 추가
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
+
+    // LiveData 의존성 추가
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+
+    // ViewModel 의존성 추가
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
 
     testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
