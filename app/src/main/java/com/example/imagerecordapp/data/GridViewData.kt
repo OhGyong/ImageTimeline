@@ -1,6 +1,5 @@
 package com.example.imagerecordapp.data
 
-import android.net.Uri
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -17,9 +16,3 @@ data class GridViewData(
 ){
     @PrimaryKey(autoGenerate = true) var id: Int = 0
 }
-
-
-data class ViewData(
-    val date: String,
-    var imgUri: Uri
-)

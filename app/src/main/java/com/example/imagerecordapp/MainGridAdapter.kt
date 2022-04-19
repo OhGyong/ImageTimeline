@@ -1,21 +1,18 @@
 package com.example.imagerecordapp
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imagerecordapp.data.GridViewData
-import com.example.imagerecordapp.data.ViewData
 import com.example.imagerecordapp.databinding.GridViewItemBinding
 
-class MainGridAdapter(private val list: List<ViewData>) :
+class MainGridAdapter(private val list: List<GridViewData>) :
     RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>(){
 
     inner class MainGridViewHolder(private val binding: GridViewItemBinding) :
         RecyclerView.ViewHolder(binding.root){
-            fun bind(viewData: ViewData){
+            fun bind(viewData: GridViewData){
                 binding.gridViewItem = viewData
-                binding.imageGallery.setImageURI(viewData.imgUri)
             }
     }
 
