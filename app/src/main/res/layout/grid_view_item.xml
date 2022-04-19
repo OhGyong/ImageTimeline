@@ -7,7 +7,7 @@
     <data>
         <variable
             name="gridViewItem"
-            type="com.example.imagerecordapp.data.ViewData" />
+            type="com.example.imagerecordapp.data.GridViewData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,9 +28,11 @@
 
         <ImageView
             android:id="@+id/image_gallery"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_marginTop="2dp"
+            android:scaleType="center"
+            app:imageUrl="@{gridViewItem.imgUri}"
             app:layout_constraintStart_toStartOf="@+id/image_date"
             app:layout_constraintTop_toBottomOf="@+id/image_date"
             tools:src="@tools:sample/backgrounds/scenic"/>
