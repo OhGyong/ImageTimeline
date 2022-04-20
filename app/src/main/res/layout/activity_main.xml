@@ -11,6 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#D1CFCF"
         tools:context=".MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -29,19 +30,15 @@
 
         <ImageButton
             android:id="@+id/image_record"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
-            android:background="@color/white"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/image_add_button"
+            android:scaleType="fitXY"
             android:src="@drawable/image_add_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.85"
-            tools:ignore="SpeakableTextPresentCheck"
-            android:contentDescription="@string/image_add_button" />
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
