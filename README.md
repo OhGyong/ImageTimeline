@@ -3,8 +3,11 @@
 
 Grid RecyclerView, Floating Button, Room, contentResolver
 
-
 ### 일정
+- 2022.04.20<br/>
+  이미지 추가 버튼 수정<br/>
+  RecyclerView 아이템 디자인 커스텀<br/>
+  앱 바 가리기
 
 - 2022.04.19<br/>
   Glide 의존성 추가<br/>
