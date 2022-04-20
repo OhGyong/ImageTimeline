@@ -1,6 +1,5 @@
 package com.example.imagerecordapp
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.database.Cursor
 import android.os.Build
@@ -26,7 +25,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db: GridViewDatabase
     private lateinit var viewModel: MainViewModel
 
-    @SuppressLint("Range")
     @RequiresApi(Build.VERSION_CODES.S)
     private val resultListener =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -68,10 +66,12 @@ class MainActivity : AppCompatActivity() {
             applicationContext, GridViewDatabase::class.java, "database"
         ).build()
 
+        // 이미지 뷰 observe
         viewModel.imageList.observe(this, {
             binding.viewGrid.adapter = MainGridAdapter(it)
         })
 
+        // 이미지 추가
         binding.imageRecord.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.type = "image/*"
