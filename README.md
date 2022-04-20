@@ -6,6 +6,18 @@ Grid RecyclerView, Floating Button, Room, contentResolver
 
 ### 일정
 
+- 2022.04.19<br/>
+  Glide 의존성 추가<br/>
+  ViewModel 작업
+
+- 2022.04.15<br/>
+  DataBinding, LiveData, ViewModel 의존성 추가<br/>
+  GridView에 데이터 넣는 작업
+
+- 2022.04.14<br/>
+  Room, Coroutines 의존성 추가<br/>
+  Room 적용
+
 - 2022.04.13<br/>
   플로팅 버튼 추가<br/>
   gitignore 수정<br/>
