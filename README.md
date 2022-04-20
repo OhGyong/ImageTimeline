@@ -3,6 +3,12 @@
 
 Grid RecyclerView, Floating Button, Room, contentResolver
 
+### 해야할 작업
+1. 갤러리에서 뒤로 가기 시 앱 종료되는 것 수정.
+2. 같은 사진 중복 등록 수정.
+3. 사진 삭제 기능 → 사진 선택도 가능해야 함.
+
+
 ### 일정
 - 2022.04.20<br/>
   이미지 추가 버튼 수정<br/>
