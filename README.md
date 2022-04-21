@@ -4,12 +4,18 @@
 Grid RecyclerView, Floating Button, Room, contentResolver
 
 ### 해야할 작업
-1. 갤러리에서 뒤로 가기 시 앱 종료되는 것 수정.
-2. 같은 사진 중복 등록 수정.
-3. 사진 삭제 기능 → 사진 선택도 가능해야 함.
+1. ~~갤러리에서 뒤로 가기 시 앱 종료되는 것 수정.~~
+2. ~~갤러리에서 사진 선택이나 뒤로 갔을 때 새로고침(사진 업데이트가 안되는 문제)~~
+3. ~~같은 사진 중복 등록 수정.~~
+4. 사진 삭제 기능 → 사진 선택도 가능해야 함.
 
 
 ### 일정
+- 2022.04.21<br/>
+  갤러리에서 뒤로 가기 시 앱 종료되는 것 수정 → `it.resultCode == RESULT_CANCELED` 사용<br/>
+  갤러리에서 사진 선택이나 뒤로 갔을 때 새로고침 → `invalidateOptionsMenu()` 사용<br/>
+  같은 사진 중복 등록 수정 → GridViewData에서 id를 삭제하고 uri를 PrimaryKey로 변경. `OnConflictStrategy.REPLACE` 사용하여 충돌 시 덮어쓰기 [참고](https://developer.android.com/reference/android/arch/persistence/room/OnConflictStrategy)
+
 - 2022.04.20<br/>
   이미지 추가 버튼 수정<br/>
   RecyclerView 아이템 디자인 커스텀<br/>
