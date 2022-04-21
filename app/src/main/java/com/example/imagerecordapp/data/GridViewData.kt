@@ -12,7 +12,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class GridViewData(
     @NonNull @ColumnInfo(name = "date") val date: String,
-    @NonNull @ColumnInfo(name = "img_uri") var imgUri: String
-){
-    @PrimaryKey(autoGenerate = true) var id: Int = 0
-}
+    @PrimaryKey @NonNull @ColumnInfo(name = "img_uri") var imgUri: String
+)
+//{
+//    @PrimaryKey(autoGenerate = true) var id: Int = 0
+//}

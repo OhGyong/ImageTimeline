@@ -2,6 +2,7 @@ package com.example.imagerecordapp.data
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 /**
@@ -13,7 +14,6 @@ interface GridViewDao {
     @Query("SELECT * FROM gridviewdata ORDER BY date ASC")
     fun getAll(): List<GridViewData>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertData(gridViewData: GridViewData)
-
 }
