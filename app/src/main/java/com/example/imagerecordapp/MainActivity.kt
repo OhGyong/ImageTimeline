@@ -4,6 +4,7 @@ import android.content.Intent
 import android.database.Cursor
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -25,10 +26,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db: GridViewDatabase
     private lateinit var viewModel: MainViewModel
 
-    @RequiresApi(Build.VERSION_CODES.S)
+    /**
+     * 갤러리 불러오기
+     */
     private val resultListener =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            try{
+            // 사진 선택 취소할 경우
+            if(it.resultCode == RESULT_CANCELED){
+                Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show()
+            }else{
                 val uri = it.data!!.data!!
 
                 // 권한 허용으로 에러 처리.
@@ -42,11 +48,10 @@ class MainActivity : AppCompatActivity() {
                 val date = Date(path) // 날짜 타입으로 변환
                 println("날짜 : $date")
 
+                // 데이터 베이스에 사진 정보 저장
                 GlobalScope.launch(Dispatchers.IO){
                     db.gridViewDao().insertData(GridViewData(date.toString(), uri.toString())) // 데이터 삽입
                 }
-            }catch (error: Error){
-                println("에러")
             }
         }
 
@@ -76,6 +81,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.type = "image/*"
             resultListener.launch(intent)
+            invalidateOptionsMenu() // 화면 새로 고침
         }
     }
 
