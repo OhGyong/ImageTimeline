@@ -58,6 +58,8 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        println("onCreate")
+
 
         // 바인딩 초기화
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -66,13 +68,9 @@ class MainActivity : AppCompatActivity() {
         // 뷰모델 초기화
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        // room의 db 초기화
-        db = Room.databaseBuilder(
-            applicationContext, GridViewDatabase::class.java, "database"
-        ).build()
-
         // 이미지 뷰 observe
         viewModel.imageList.observe(this, {
+            println("imageList observe")
             binding.viewGrid.adapter = MainGridAdapter(it)
         })
 
@@ -81,12 +79,17 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.type = "image/*"
             resultListener.launch(intent)
-            invalidateOptionsMenu() // 화면 새로 고침
         }
     }
 
     override fun onResume() {
         super.onResume()
+        println("onResume")
+
+        // room의 db 초기화
+        db = Room.databaseBuilder(
+            applicationContext, GridViewDatabase::class.java, "database"
+        ).build()
 
         viewModel.getImageListData(db)
     }
