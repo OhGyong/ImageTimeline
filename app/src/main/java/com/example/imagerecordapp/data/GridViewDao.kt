@@ -1,9 +1,6 @@
 package com.example.imagerecordapp.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 /**
  * DAO 정의
@@ -16,4 +13,7 @@ interface GridViewDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertData(gridViewData: GridViewData)
+
+    @Query("DELETE FROM gridviewdata WHERE img_uri = :imgUri")
+    fun deleteData(imgUri: String)
 }
