@@ -1,5 +1,6 @@
 package com.example.imagerecordapp
 
+import android.annotation.SuppressLint
 import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +16,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @DelicateCoroutinesApi
-class MainGridAdapter(private val list: List<GridViewData>) :
+class MainGridAdapter(private var list: List<GridViewData>) :
     RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>() {
-
-    private var refreshToken = false
 
     inner class MainGridViewHolder(private val binding: GridViewItemBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnCreateContextMenuListener {
@@ -38,6 +37,7 @@ class MainGridAdapter(private val list: List<GridViewData>) :
         }
 
         // 컨텍스트 메뉴 띄우기
+        @SuppressLint("NotifyDataSetChanged")
         override fun onCreateContextMenu(
             menu: ContextMenu?,
             v: View?,
@@ -55,8 +55,9 @@ class MainGridAdapter(private val list: List<GridViewData>) :
 
                 GlobalScope.launch {
                     db.gridViewDao().deleteData(binding.gridViewItem!!.imgUri) // 데이터 삭제
-                    refreshToken = true
+                    list = db.gridViewDao().getAll() // 바뀐 list 값을 새로 변경
                 }
+                notifyDataSetChanged() // 리사이클러 뷰 업데이트
                 true
             }
         }
