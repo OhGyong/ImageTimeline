@@ -13,8 +13,11 @@ Grid RecyclerView, Room, contentResolver, Context Menu
 
 ### 일정
 - 2022.04.23<br/>
-  다크 모드 비활성화  
-
+  다크 모드 비활성화<br/>
+  앱 아이콘 변경<br/>
+  패키지 명 변경 (example → android)<br/>
+  스플래시 화면 추가
+  
 - 2022.04.22<br/>
   사진 삭제 기능 추가 → 리사이클러 뷰에 컨텍스트 메뉴 추가.<br/>
   
