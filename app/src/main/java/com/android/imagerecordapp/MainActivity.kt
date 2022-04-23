@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
+import com.android.imagerecordapp.adapter.MainGridAdapter
 import com.android.imagerecordapp.data.GridViewData
 import com.android.imagerecordapp.data.GridViewDatabase
 import com.android.imagerecordapp.databinding.ActivityMainBinding

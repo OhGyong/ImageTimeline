@@ -1,4 +1,4 @@
-package com.android.imagerecordapp
+package com.android.imagerecordapp.adapter
 
 import android.annotation.SuppressLint
 import android.view.ContextMenu

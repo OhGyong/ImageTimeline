@@ -1,7 +1,8 @@
-package com.android.imagerecordapp
+package com.android.imagerecordapp.adapter
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.android.imagerecordapp.R
 import com.bumptech.glide.Glide
 
 object BindingAdapter {
