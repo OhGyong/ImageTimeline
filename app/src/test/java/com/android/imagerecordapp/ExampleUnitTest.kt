@@ -1,4 +1,4 @@
-package com.example.imagerecordapp
+package com.android.imagerecordapp
 
 import org.junit.Test
 

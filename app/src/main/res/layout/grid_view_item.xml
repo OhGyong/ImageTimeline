@@ -7,7 +7,7 @@
     <data>
         <variable
             name="gridViewItem"
-            type="com.example.imagerecordapp.data.GridViewData" />
+            type="com.android.imagerecordapp.data.GridViewData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,4 +1,4 @@
-package com.example.imagerecordapp
+package com.android.imagerecordapp
 
 import android.annotation.SuppressLint
 import android.view.ContextMenu
@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.imagerecordapp.data.GridViewData
-import com.example.imagerecordapp.data.GridViewDatabase
-import com.example.imagerecordapp.databinding.GridViewItemBinding
+import com.android.imagerecordapp.data.GridViewData
+import com.android.imagerecordapp.data.GridViewDatabase
+import com.android.imagerecordapp.databinding.GridViewItemBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

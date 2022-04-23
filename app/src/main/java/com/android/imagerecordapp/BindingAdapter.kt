@@ -1,4 +1,4 @@
-package com.example.imagerecordapp
+package com.android.imagerecordapp
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

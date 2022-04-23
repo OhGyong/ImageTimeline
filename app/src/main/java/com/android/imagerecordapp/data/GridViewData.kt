@@ -1,4 +1,4 @@
-package com.example.imagerecordapp.data
+package com.android.imagerecordapp.data
 
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo

@@ -1,4 +1,4 @@
-package com.example.imagerecordapp.data
+package com.android.imagerecordapp.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

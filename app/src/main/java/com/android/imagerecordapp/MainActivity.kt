@@ -1,4 +1,4 @@
-package com.example.imagerecordapp
+package com.android.imagerecordapp
 
 import android.content.Intent
 import android.database.Cursor
@@ -11,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
-import com.example.imagerecordapp.data.GridViewData
-import com.example.imagerecordapp.data.GridViewDatabase
-import com.example.imagerecordapp.databinding.ActivityMainBinding
+import com.android.imagerecordapp.data.GridViewData
+import com.android.imagerecordapp.data.GridViewDatabase
+import com.android.imagerecordapp.databinding.ActivityMainBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

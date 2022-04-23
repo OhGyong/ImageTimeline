@@ -1,9 +1,9 @@
-package com.example.imagerecordapp
+package com.android.imagerecordapp
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.imagerecordapp.data.GridViewData
-import com.example.imagerecordapp.data.GridViewDatabase
+import com.android.imagerecordapp.data.GridViewData
+import com.android.imagerecordapp.data.GridViewDatabase
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
