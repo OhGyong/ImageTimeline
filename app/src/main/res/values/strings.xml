@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ImageRecordApp</string>
+    <string name="app_name">Image Record</string>
     <string name="image_add_button">image_add_button</string>
     <string name="image_view">image_view</string>
     <string name="splash_image">TODO</string>
