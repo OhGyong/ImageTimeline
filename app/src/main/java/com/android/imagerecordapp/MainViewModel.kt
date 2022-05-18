@@ -8,6 +8,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.net.URI
 
 @DelicateCoroutinesApi
 class MainViewModel: ViewModel() {
@@ -20,6 +21,13 @@ class MainViewModel: ViewModel() {
             }catch (error: Exception){
                 println("이미지 불러오기 실패 $error")
             }
+        }
+    }
+
+    // 데이터 베이스에 사진 정보 저장
+    fun inputImageData(db: GridViewDatabase, date: String, uri: String ){
+        GlobalScope.launch(Dispatchers.IO){
+            db.gridViewDao().insertData(GridViewData(date, uri)) // 데이터 삽입
         }
     }
 }

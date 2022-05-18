@@ -47,13 +47,8 @@ class MainActivity : AppCompatActivity() {
                 cursor.moveToFirst()
                 val path = cursor.getLong(3) // 날짜 정보
 
-                val date = Date(path) // 날짜 타입으로 변환
-                println("날짜 : $date")
-
                 // 데이터 베이스에 사진 정보 저장
-                GlobalScope.launch(Dispatchers.IO){
-                    db.gridViewDao().insertData(GridViewData(date.toString(), uri.toString())) // 데이터 삽입
-                }
+                viewModel.inputImageData(db, Date(path).toString(), uri.toString())
             }
         }
 
@@ -73,10 +68,10 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         // 이미지 뷰 observe
-        viewModel.imageList.observe(this, {
+        viewModel.imageList.observe(this) {
             println("imageList observe")
             binding.viewGrid.adapter = MainGridAdapter(it)
-        })
+        }
 
         // 이미지 추가
         binding.imageRecord.setOnClickListener {
