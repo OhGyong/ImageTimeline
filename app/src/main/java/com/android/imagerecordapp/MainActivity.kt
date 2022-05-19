@@ -2,23 +2,17 @@ package com.android.imagerecordapp
 
 import android.content.Intent
 import android.database.Cursor
-import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.android.imagerecordapp.adapter.MainGridAdapter
-import com.android.imagerecordapp.data.GridViewData
 import com.android.imagerecordapp.data.GridViewDatabase
 import com.android.imagerecordapp.databinding.ActivityMainBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.sql.Date
 
 @DelicateCoroutinesApi
@@ -52,7 +46,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         println("onCreate")

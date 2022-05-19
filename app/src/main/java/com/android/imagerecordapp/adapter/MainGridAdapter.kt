@@ -55,7 +55,6 @@ class MainGridAdapter(private var list: List<GridViewData>) :
 
                 GlobalScope.launch {
                     db.gridViewDao().deleteData(binding.gridViewItem!!.imgUri) // 데이터 삭제
-                    list = db.gridViewDao().getAll() // 바뀐 list 값을 새로 변경
                 }
                 notifyDataSetChanged() // 리사이클러 뷰 업데이트
                 true
