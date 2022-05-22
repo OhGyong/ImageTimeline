@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.android.imagerecordapp.MainViewModel
 import com.android.imagerecordapp.data.GridViewData
 import com.android.imagerecordapp.data.GridViewDatabase
 import com.android.imagerecordapp.databinding.GridViewItemBinding
@@ -16,8 +17,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @DelicateCoroutinesApi
-class MainGridAdapter(private var list: List<GridViewData>) :
+class MainGridAdapter(private var list: List<GridViewData>, db: GridViewDatabase) :
     RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>() {
+
+    val database = db
 
     inner class MainGridViewHolder(private val binding: GridViewItemBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnCreateContextMenuListener {
@@ -47,16 +50,8 @@ class MainGridAdapter(private var list: List<GridViewData>) :
 
             // 메뉴의 item 선택 시 해당 이미지 삭제
             item.setOnMenuItemClickListener {
+                MainViewModel().deleteImageData(database, binding.gridViewItem!!.imgUri)
                 Toast.makeText(binding.root.context, "삭제 되었습니다.", Toast.LENGTH_SHORT).show()
-
-                val db = Room.databaseBuilder(
-                    binding.root.context, GridViewDatabase::class.java, "database"
-                ).build()
-
-                GlobalScope.launch {
-                    db.gridViewDao().deleteData(binding.gridViewItem!!.imgUri) // 데이터 삭제
-                }
-                notifyDataSetChanged() // 리사이클러 뷰 업데이트
                 true
             }
         }

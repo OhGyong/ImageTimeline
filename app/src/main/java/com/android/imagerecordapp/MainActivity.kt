@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         // 이미지 뷰 observe
         viewModel.imageList.observe(this) {
             println("imageList observe")
-            binding.viewGrid.adapter = MainGridAdapter(it)
+            binding.viewGrid.adapter = MainGridAdapter(it, db)
         }
 
         // 이미지 추가
