@@ -1,8 +1,11 @@
 package com.android.imagerecordapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.database.Cursor
 import android.os.Bundle
+import android.view.ContextMenu
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +13,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.android.imagerecordapp.adapter.MainGridAdapter
+import com.android.imagerecordapp.data.GridViewData
 import com.android.imagerecordapp.data.GridViewDatabase
 import com.android.imagerecordapp.databinding.ActivityMainBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -21,6 +25,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var db: GridViewDatabase
     private lateinit var viewModel: MainViewModel
+    private lateinit var mAdapter: MainGridAdapter
+
+    private lateinit var imgUrl: String
 
     /**
      * 갤러리 불러오기
@@ -43,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
                 // 데이터 베이스에 사진 정보 저장
                 viewModel.inputImageData(db, Date(path).toString(), uri.toString())
+                viewModel.getImageListData(db)
             }
         }
 
@@ -60,10 +68,26 @@ class MainActivity : AppCompatActivity() {
         // 뷰모델 초기화
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
+        // room의 db 초기화
+        db = Room.databaseBuilder(
+            applicationContext, GridViewDatabase::class.java, "database"
+        ).build()
+
+        viewModel.getImageListData(db)
+
         // 이미지 뷰 observe
         viewModel.imageList.observe(this) {
             println("imageList observe")
-            binding.viewGrid.adapter = MainGridAdapter(it, db)
+            mAdapter = MainGridAdapter(it)
+            binding.viewGrid.adapter = mAdapter
+
+            mAdapter.setOnItemClickListener(object: MainGridAdapter.OnItemClickListener{
+                override fun onItemClick(v: View, data: GridViewData, pos: Int) {
+                    imgUrl = data.imgUri
+                    v.setOnLongClickListener { false }
+                    v.setOnCreateContextMenuListener(this@MainActivity)
+                }
+            })
         }
 
         // 이미지 추가
@@ -74,15 +98,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        println("onResume")
+    // 컨텍스트 메뉴 띄우기
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        val item = menu!!.add(0,0,0,"삭제")
 
-        // room의 db 초기화
-        db = Room.databaseBuilder(
-            applicationContext, GridViewDatabase::class.java, "database"
-        ).build()
+        // 메뉴의 item 선택 시 해당 이미지 삭제
+        item.setOnMenuItemClickListener {
+            MainViewModel().deleteImageData(db, imgUrl)
+            Toast.makeText(binding.root.context, "삭제 되었습니다.", Toast.LENGTH_SHORT).show()
 
-        viewModel.getImageListData(db)
+            // 화면 새로고침
+            viewModel.getImageListData(db)
+            true
+        }
     }
 }

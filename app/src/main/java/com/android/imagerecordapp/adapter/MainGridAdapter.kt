@@ -17,42 +17,29 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @DelicateCoroutinesApi
-class MainGridAdapter(private var list: List<GridViewData>, db: GridViewDatabase) :
+class MainGridAdapter(private var list: List<GridViewData>) :
     RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>() {
 
-    val database = db
+    // Activity에서 사용하기 위한 클릭 리스너
+    interface OnItemClickListener{
+        fun onItemClick(v: View, data: GridViewData, pos: Int)
+    }
+
+    private var listener: OnItemClickListener? = null
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        this.listener = listener
+    }
 
     inner class MainGridViewHolder(private val binding: GridViewItemBinding) :
-        RecyclerView.ViewHolder(binding.root), View.OnCreateContextMenuListener {
-
-        // 컨텍스트 메뉴 리스너를 init 으로 바로 초기화(MainGridViewHolder를 View로써 인자로 사용)
-        init{
-            binding.root.setOnCreateContextMenuListener(this)
-        }
+        RecyclerView.ViewHolder(binding.root){
 
         fun bind(viewData: GridViewData) {
             binding.gridViewItem = viewData
 
-            // 롱터치로 컨텍스트 메뉴 띄우기
-            binding.root.setOnLongClickListener {
-                false
-            }
-        }
-
-        // 컨텍스트 메뉴 띄우기
-        @SuppressLint("NotifyDataSetChanged")
-        override fun onCreateContextMenu(
-            menu: ContextMenu?,
-            v: View?,
-            menuInfo: ContextMenu.ContextMenuInfo?
-        ) {
-            val item = menu!!.add(0,0,0,"삭제")
-
-            // 메뉴의 item 선택 시 해당 이미지 삭제
-            item.setOnMenuItemClickListener {
-                MainViewModel().deleteImageData(database, binding.gridViewItem!!.imgUri)
-                Toast.makeText(binding.root.context, "삭제 되었습니다.", Toast.LENGTH_SHORT).show()
-                true
+              if(adapterPosition != RecyclerView.NO_POSITION){
+                itemView.setOnClickListener {
+                    listener?.onItemClick(itemView, viewData, adapterPosition)
+                }
             }
         }
     }
