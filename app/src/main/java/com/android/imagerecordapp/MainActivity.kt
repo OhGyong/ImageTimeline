@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
                 // 데이터 베이스에 사진 정보 저장
                 viewModel.inputImageData(db, Date(path).toString(), uri.toString())
+                viewModel.getImageListData(db)
             }
         }
 
