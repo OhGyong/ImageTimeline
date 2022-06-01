@@ -1,7 +1,7 @@
 # Image_Record_App
 갤러리의 사진을 올리면 날짜별로 정렬하여 보여주는 앱.(몸무게 사진 찍어놓은 것을 날짜별로 기록하려고 시작)
 
-https://user-images.githubusercontent.com/105263450/171398538-78cc3aff-aa4c-4ce6-b766-a565250eecdc.mp4
+https://user-images.githubusercontent.com/105263450/171398840-7fb105e5-db45-4820-be09-9e9f431c75d6.mp4
 
 ### 사용 기술
 Grid RecyclerView, Room, contentResolver, ContextMenu, AAC(DataBinding, ViewModel, LiveData)
