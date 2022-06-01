@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity() {
 
                 // 데이터 베이스에 사진 정보 저장
                 viewModel.inputImageData(db, Date(path).toString(), uri.toString())
-                viewModel.getImageListData(db)
             }
         }
 
@@ -73,14 +72,13 @@ class MainActivity : AppCompatActivity() {
             applicationContext, GridViewDatabase::class.java, "database"
         ).build()
 
-        viewModel.getImageListData(db)
-
         // 이미지 뷰 observe
         viewModel.imageList.observe(this) {
             println("imageList observe")
             mAdapter = MainGridAdapter(it)
             binding.viewGrid.adapter = mAdapter
 
+            // 아이템 롱 클릭으로 삭제
             mAdapter.setOnItemClickListener(object: MainGridAdapter.OnItemClickListener{
                 override fun onItemClick(v: View, data: GridViewData, pos: Int) {
                     imgUrl = data.imgUri
@@ -96,6 +94,11 @@ class MainActivity : AppCompatActivity() {
             intent.type = "image/*"
             resultListener.launch(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getImageListData(db)
     }
 
     // 컨텍스트 메뉴 띄우기
