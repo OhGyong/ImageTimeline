@@ -51,29 +51,32 @@ class MainActivity : AppCompatActivity() {
             resultListener.launch(intent)
         }
 
+        setAdapter()
         observeLiveData()
-    }
-
-    override fun onResume() {
-        super.onResume()
         mViewModel.getImageListData(db)
     }
 
     private fun observeLiveData() {
         // 이미지 뷰 observe
         mViewModel.imageList.observe(this) {
-            mAdapter = MainGridAdapter(it)
-            mBinding.viewGrid.adapter = mAdapter
-
-            // 아이템 롱 클릭으로 삭제
-            mAdapter.setOnItemClickListener(object: MainGridAdapter.OnItemClickListener{
-                override fun onItemClick(v: View, data: GridViewData, pos: Int) {
-                    imgUrl = data.imgUri
-                    v.setOnLongClickListener { false }
-                    v.setOnCreateContextMenuListener(this@MainActivity)
-                }
-            })
+            println("observe")
+            val imageArrayList = it as ArrayList<GridViewData>
+            mAdapter.setData(imageArrayList)
         }
+    }
+
+    private fun setAdapter() {
+        mAdapter = MainGridAdapter()
+        mBinding.viewGrid.adapter = mAdapter
+
+        // 아이템 롱 클릭으로 삭제
+        mAdapter.setOnItemClickListener(object: MainGridAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, data: GridViewData, pos: Int) {
+                imgUrl = data.imgUri
+                v.setOnLongClickListener { false }
+                v.setOnCreateContextMenuListener(this@MainActivity)
+            }
+        })
     }
 
     /**
@@ -97,7 +100,6 @@ class MainActivity : AppCompatActivity() {
 
                 // 데이터 베이스에 사진 정보 저장
                 mViewModel.inputImageData(db, Date(path).toString(), uri.toString())
-                mViewModel.getImageListData(db)
             }
         }
 

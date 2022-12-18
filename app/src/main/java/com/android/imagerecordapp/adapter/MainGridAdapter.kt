@@ -17,8 +17,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @DelicateCoroutinesApi
-class MainGridAdapter(private var list: List<GridViewData>) :
-    RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>() {
+class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>() {
+
+    private var list = ArrayList<GridViewData>()
 
     // Activity에서 사용하기 위한 클릭 리스너
     interface OnItemClickListener{
@@ -57,4 +58,19 @@ class MainGridAdapter(private var list: List<GridViewData>) :
     override fun getItemCount(): Int {
         return list.count()
     }
+
+
+    fun insertData(image: GridViewData) {
+        list.add(image)
+        notifyItemChanged(list.size)
+    }
+
+    fun setData(imageList: ArrayList<GridViewData>) {
+        list.clear()
+        list.addAll(imageList)
+//        notifyItemRangeChanged(0, list.size)
+        notifyDataSetChanged()
+    }
+
+
 }

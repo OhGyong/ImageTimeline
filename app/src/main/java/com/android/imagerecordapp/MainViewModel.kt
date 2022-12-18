@@ -28,6 +28,7 @@ class MainViewModel: ViewModel() {
     fun inputImageData(db: GridViewDatabase, date: String, uri: String ){
         GlobalScope.launch(Dispatchers.IO){
             db.gridViewDao().insertData(GridViewData(date, uri)) // 데이터 삽입
+            getImageListData(db)
         }
     }
 
@@ -35,6 +36,7 @@ class MainViewModel: ViewModel() {
     fun deleteImageData(db: GridViewDatabase, uri: String){
         GlobalScope.launch {
             db.gridViewDao().deleteData(uri) // 데이터 삭제
+            getImageListData(db)
         }
     }
 }
