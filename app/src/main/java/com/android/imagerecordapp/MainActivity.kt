@@ -22,12 +22,59 @@ import java.sql.Date
 @DelicateCoroutinesApi
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var db: GridViewDatabase
-    private lateinit var viewModel: MainViewModel
+    private lateinit var mBinding: ActivityMainBinding
+    private lateinit var mViewModel: MainViewModel
     private lateinit var mAdapter: MainGridAdapter
-
+    private lateinit var db: GridViewDatabase
     private lateinit var imgUrl: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // 다크모드 비활성화
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        mBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
+
+        mViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
+        // room의 db 초기화
+        db = Room.databaseBuilder(
+            applicationContext, GridViewDatabase::class.java, "database"
+        ).build()
+
+        // 이미지 추가
+        mBinding.imageRecord.setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.type = "image/*"
+            resultListener.launch(intent)
+        }
+
+        observeLiveData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mViewModel.getImageListData(db)
+    }
+
+    private fun observeLiveData() {
+        // 이미지 뷰 observe
+        mViewModel.imageList.observe(this) {
+            mAdapter = MainGridAdapter(it)
+            mBinding.viewGrid.adapter = mAdapter
+
+            // 아이템 롱 클릭으로 삭제
+            mAdapter.setOnItemClickListener(object: MainGridAdapter.OnItemClickListener{
+                override fun onItemClick(v: View, data: GridViewData, pos: Int) {
+                    imgUrl = data.imgUri
+                    v.setOnLongClickListener { false }
+                    v.setOnCreateContextMenuListener(this@MainActivity)
+                }
+            })
+        }
+    }
 
     /**
      * 갤러리 불러오기
@@ -49,58 +96,10 @@ class MainActivity : AppCompatActivity() {
                 val path = cursor.getLong(3) // 날짜 정보
 
                 // 데이터 베이스에 사진 정보 저장
-                viewModel.inputImageData(db, Date(path).toString(), uri.toString())
-                viewModel.getImageListData(db)
+                mViewModel.inputImageData(db, Date(path).toString(), uri.toString())
+                mViewModel.getImageListData(db)
             }
         }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        println("onCreate")
-
-        // 다크모드 비활성화
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
-        // 바인딩 초기화
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        // 뷰모델 초기화
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-
-        // room의 db 초기화
-        db = Room.databaseBuilder(
-            applicationContext, GridViewDatabase::class.java, "database"
-        ).build()
-
-        // 이미지 뷰 observe
-        viewModel.imageList.observe(this) {
-            println("imageList observe")
-            mAdapter = MainGridAdapter(it)
-            binding.viewGrid.adapter = mAdapter
-
-            // 아이템 롱 클릭으로 삭제
-            mAdapter.setOnItemClickListener(object: MainGridAdapter.OnItemClickListener{
-                override fun onItemClick(v: View, data: GridViewData, pos: Int) {
-                    imgUrl = data.imgUri
-                    v.setOnLongClickListener { false }
-                    v.setOnCreateContextMenuListener(this@MainActivity)
-                }
-            })
-        }
-
-        // 이미지 추가
-        binding.imageRecord.setOnClickListener {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            intent.type = "image/*"
-            resultListener.launch(intent)
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getImageListData(db)
-    }
 
     // 컨텍스트 메뉴 띄우기
     @SuppressLint("NotifyDataSetChanged")
@@ -114,10 +113,10 @@ class MainActivity : AppCompatActivity() {
         // 메뉴의 item 선택 시 해당 이미지 삭제
         item.setOnMenuItemClickListener {
             MainViewModel().deleteImageData(db, imgUrl)
-            Toast.makeText(binding.root.context, "삭제 되었습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mBinding.root.context, "삭제 되었습니다.", Toast.LENGTH_SHORT).show()
 
             // 화면 새로고침
-            viewModel.getImageListData(db)
+            mViewModel.getImageListData(db)
             true
         }
     }
