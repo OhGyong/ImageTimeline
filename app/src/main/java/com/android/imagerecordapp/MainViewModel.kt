@@ -2,19 +2,17 @@ package com.android.imagerecordapp
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.android.imagerecordapp.data.GridViewData
 import com.android.imagerecordapp.data.GridViewDatabase
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-@DelicateCoroutinesApi
 class MainViewModel: ViewModel() {
     val imageList: MutableLiveData<List<GridViewData>> = MutableLiveData()
 
     fun getImageListData(db: GridViewDatabase){
-        GlobalScope.launch(Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             try{
                 imageList.postValue(db.gridViewDao().getAll())
             }catch (error: Exception){
@@ -25,7 +23,7 @@ class MainViewModel: ViewModel() {
 
     // 데이터 베이스에 사진 정보 저장
     fun inputImageData(db: GridViewDatabase, date: String, uri: String ){
-        GlobalScope.launch(Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO){
             db.gridViewDao().insertData(GridViewData(date, uri)) // 데이터 삽입
             getImageListData(db)
         }
@@ -33,7 +31,7 @@ class MainViewModel: ViewModel() {
 
     // 사진 삭제
     fun deleteImageData(db: GridViewDatabase, uri: String){
-        GlobalScope.launch {
+        viewModelScope.launch {
             db.gridViewDao().deleteData(uri) // 데이터 삭제
             getImageListData(db)
         }
