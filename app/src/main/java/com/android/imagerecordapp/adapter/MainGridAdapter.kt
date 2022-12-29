@@ -56,5 +56,10 @@ class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>
         notifyDataSetChanged()
     }
 
+    fun removeData(gridViewData: GridViewData) {
+        list.remove(gridViewData)
+        notifyDataSetChanged()
+    }
+
 
 }

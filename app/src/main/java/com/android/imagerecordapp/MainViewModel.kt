@@ -33,7 +33,6 @@ class MainViewModel: ViewModel() {
     fun deleteImageData(db: GridViewDatabase, uri: String){
         viewModelScope.launch(Dispatchers.IO) {
             db.gridViewDao().deleteData(uri) // 데이터 삭제
-            getImageListData(db)
         }
     }
 }

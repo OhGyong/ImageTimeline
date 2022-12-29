@@ -23,7 +23,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mViewModel: MainViewModel
     private lateinit var mAdapter: MainGridAdapter
     private lateinit var db: GridViewDatabase
-    private lateinit var imgUrl: String
+    private var imgUrl = ""
+    private var date = ""
+    private var imageArrayList = arrayListOf<GridViewData>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         // 이미지 뷰 observe
         mViewModel.imageList.observe(this) {
             println("observe $it")
-            val imageArrayList = it as ArrayList<GridViewData>
+            imageArrayList = it as ArrayList<GridViewData>
             mAdapter.setData(imageArrayList)
         }
     }
@@ -70,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         mAdapter.setOnItemClickListener(object: MainGridAdapter.OnItemClickListener{
             override fun onItemClick(v: View, data: GridViewData, pos: Int) {
                 imgUrl = data.imgUri
+                date = data.date
                 v.setOnLongClickListener { false }
                 v.setOnCreateContextMenuListener(this@MainActivity)
             }
@@ -110,11 +114,10 @@ class MainActivity : AppCompatActivity() {
 
         // 메뉴의 item 선택 시 해당 이미지 삭제
         item.setOnMenuItemClickListener {
-            MainViewModel().deleteImageData(db, imgUrl)
+            mViewModel.deleteImageData(db, imgUrl)
+            imageArrayList.remove(GridViewData(date , imgUrl))
+            mAdapter.removeData(GridViewData(date , imgUrl))
             Toast.makeText(mBinding.root.context, "삭제 되었습니다.", Toast.LENGTH_SHORT).show()
-
-            // 화면 새로고침
-            mViewModel.getImageListData(db)
             true
         }
     }
