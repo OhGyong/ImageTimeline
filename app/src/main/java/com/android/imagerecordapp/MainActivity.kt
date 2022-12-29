@@ -1,6 +1,5 @@
 package com.android.imagerecordapp
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.database.Cursor
 import android.os.Bundle
@@ -57,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     private fun observeLiveData() {
         // 이미지 뷰 observe
         mViewModel.imageList.observe(this) {
-            println("observe")
+            println("observe $it")
             val imageArrayList = it as ArrayList<GridViewData>
             mAdapter.setData(imageArrayList)
         }
@@ -102,7 +101,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     // 컨텍스트 메뉴 띄우기
-    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateContextMenu(
         menu: ContextMenu?,
         v: View?,

@@ -12,7 +12,9 @@ interface GridViewDao {
     fun getAll(): List<GridViewData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertData(gridViewData: GridViewData)
+    fun insertData(gridViewData: GridViewData) : Long
+//    @Query("INSERT INTO gridviewdata VALUES(:date, :uri)")
+//    fun insertData(date: String, uri: String)
 
     @Query("DELETE FROM gridviewdata WHERE img_uri = :imgUri")
     fun deleteData(imgUri: String)
