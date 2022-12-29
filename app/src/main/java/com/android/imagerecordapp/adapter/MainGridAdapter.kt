@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.imagerecordapp.data.GridViewData
 import com.android.imagerecordapp.databinding.GridViewItemBinding
-import kotlinx.coroutines.DelicateCoroutinesApi
 
-@DelicateCoroutinesApi
 class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>() {
 
     private var list = ArrayList<GridViewData>()
@@ -49,12 +47,6 @@ class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>
 
     override fun getItemCount(): Int {
         return list.count()
-    }
-
-
-    fun insertData(image: GridViewData) {
-        list.add(image)
-        notifyItemChanged(list.size)
     }
 
     fun setData(imageList: ArrayList<GridViewData>) {

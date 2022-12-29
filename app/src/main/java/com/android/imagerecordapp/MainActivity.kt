@@ -16,10 +16,8 @@ import com.android.imagerecordapp.adapter.MainGridAdapter
 import com.android.imagerecordapp.data.GridViewData
 import com.android.imagerecordapp.data.GridViewDatabase
 import com.android.imagerecordapp.databinding.ActivityMainBinding
-import kotlinx.coroutines.DelicateCoroutinesApi
 import java.sql.Date
 
-@DelicateCoroutinesApi
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
