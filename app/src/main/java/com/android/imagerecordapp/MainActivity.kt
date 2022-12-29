@@ -57,11 +57,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeLiveData() {
-        // 이미지 뷰 observe
+        // 이미지 리스트 호출
         mViewModel.imageList.observe(this) {
             println("observe $it")
             imageArrayList = it as ArrayList<GridViewData>
             mAdapter.setData(imageArrayList)
+        }
+
+        // 이미지 삽입 후 리스트 호출
+        mViewModel.getInsertData.observe(this) {
+            imageArrayList = it as ArrayList<GridViewData>
+            mAdapter.insertData(imageArrayList)
         }
     }
 

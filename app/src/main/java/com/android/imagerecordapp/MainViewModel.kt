@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
     val imageList: MutableLiveData<List<GridViewData>> = MutableLiveData()
+    val getInsertData: MutableLiveData<List<GridViewData>> = MutableLiveData()
 
     fun getImageListData(db: GridViewDatabase){
         viewModelScope.launch(Dispatchers.IO) {
@@ -25,7 +26,7 @@ class MainViewModel: ViewModel() {
     fun inputImageData(db: GridViewDatabase, date: String, uri: String ){
         viewModelScope.launch(Dispatchers.IO){
             db.gridViewDao().insertData(GridViewData(date, uri)) // 데이터 삽입
-            getImageListData(db)
+            getInsertData.postValue(db.gridViewDao().getAll())
         }
     }
 
