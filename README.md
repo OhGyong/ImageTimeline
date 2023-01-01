@@ -15,6 +15,15 @@ Grid RecyclerView, Room, contentResolver, ContextMenu, AAC(DataBinding, ViewMode
 
 
 ### 일정
+- 2022.12.29<br/>
+  이미지 사이즈 조정<br/>
+  viewModelScope로 변경<br/>
+  RecyclerView의 notify 메서드 수정
+
+
+- 2022.12.18~12.19<br/>
+  리스트 갱신 코드 수정<br/>
+
 - 2022.04.23<br/>
   다크 모드 비활성화<br/>
   앱 아이콘 변경<br/>
