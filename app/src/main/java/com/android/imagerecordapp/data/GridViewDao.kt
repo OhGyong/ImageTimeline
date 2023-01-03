@@ -8,7 +8,7 @@ import androidx.room.*
  */
 @Dao
 interface GridViewDao {
-    @Query("SELECT * FROM gridviewdata ORDER BY date ASC")
+    @Query("SELECT * FROM gridviewdata ORDER BY date ASC LIMIT 10 OFFSET 1")
     fun getAll(): List<GridViewData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
