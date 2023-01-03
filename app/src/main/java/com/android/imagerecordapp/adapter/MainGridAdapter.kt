@@ -21,9 +21,7 @@ class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>
         this.listener = listener
     }
 
-    inner class MainGridViewHolder(private val mBinding: GridViewItemBinding) :
-        RecyclerView.ViewHolder(mBinding.root){
-
+    inner class MainGridViewHolder(private val mBinding: GridViewItemBinding): RecyclerView.ViewHolder(mBinding.root){
         fun bind(viewData: GridViewData) {
             mBinding.gridViewItem = viewData
 

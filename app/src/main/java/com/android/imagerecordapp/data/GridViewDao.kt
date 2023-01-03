@@ -8,8 +8,8 @@ import androidx.room.*
  */
 @Dao
 interface GridViewDao {
-    @Query("SELECT * FROM gridviewdata ORDER BY date ASC LIMIT 10 OFFSET 1")
-    fun getAll(): List<GridViewData>
+    @Query("SELECT * FROM gridviewdata ORDER BY date ASC LIMIT 10 OFFSET (:page-1)*10")
+    fun getAll(page: Int): List<GridViewData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertData(gridViewData: GridViewData) : Long

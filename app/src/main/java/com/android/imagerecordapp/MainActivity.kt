@@ -10,6 +10,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.android.imagerecordapp.adapter.MainGridAdapter
 import com.android.imagerecordapp.data.GridViewData
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private var imgUrl = ""
     private var date = ""
     private var imageArrayList = arrayListOf<GridViewData>()
+    private var page = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         setAdapter()
         observeLiveData()
-        mViewModel.getImageListData(db)
+        mViewModel.getImageListData(db, page)
     }
 
     private fun observeLiveData() {
@@ -62,6 +65,8 @@ class MainActivity : AppCompatActivity() {
             println("observe $it")
             imageArrayList = it as ArrayList<GridViewData>
             mAdapter.setData(imageArrayList)
+
+
         }
 
         // 이미지 삽입 후 리스트 호출
@@ -82,6 +87,19 @@ class MainActivity : AppCompatActivity() {
                 date = data.date
                 v.setOnLongClickListener { false }
                 v.setOnCreateContextMenuListener(this@MainActivity)
+            }
+        })
+
+        mBinding.viewGrid.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val rvPosition = (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+                val totalCount = recyclerView.adapter?.itemCount?.minus(1)
+
+                if(rvPosition == totalCount) {
+                    mViewModel.getImageListData(db, ++page)
+                }
             }
         })
     }

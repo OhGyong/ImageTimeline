@@ -12,10 +12,10 @@ class MainViewModel: ViewModel() {
     val imageList: MutableLiveData<List<GridViewData>> = MutableLiveData()
     val getInsertData: MutableLiveData<List<GridViewData>> = MutableLiveData()
 
-    fun getImageListData(db: GridViewDatabase){
+    fun getImageListData(db: GridViewDatabase, page: Int){
         viewModelScope.launch(Dispatchers.IO) {
             try{
-                imageList.postValue(db.gridViewDao().getAll())
+                imageList.postValue(db.gridViewDao().getAll(page))
             }catch (error: Exception){
                 println("이미지 불러오기 실패 $error")
             }
@@ -26,7 +26,7 @@ class MainViewModel: ViewModel() {
     fun inputImageData(db: GridViewDatabase, date: String, uri: String ){
         viewModelScope.launch(Dispatchers.IO){
             db.gridViewDao().insertData(GridViewData(date, uri)) // 데이터 삽입
-            getInsertData.postValue(db.gridViewDao().getAll())
+            getInsertData.postValue(db.gridViewDao().getAll(1))
         }
     }
 
