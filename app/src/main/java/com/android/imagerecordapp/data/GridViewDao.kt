@@ -12,7 +12,7 @@ interface GridViewDao {
     fun getAll(page: Int): List<GridViewData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertData(gridViewData: GridViewData) : Long
+    fun insertData(gridViewData: GridViewData)
 //    @Query("INSERT INTO gridviewdata VALUES(:date, :uri)")
 //    fun insertData(date: String, uri: String)
 
