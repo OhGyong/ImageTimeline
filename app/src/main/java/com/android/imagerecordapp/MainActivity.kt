@@ -47,13 +47,7 @@ class MainActivity : AppCompatActivity() {
             applicationContext, GridViewDatabase::class.java, "database"
         ).build()
 
-        // 이미지 추가
-        mBinding.imageRecord.setOnClickListener {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            intent.type = "image/*"
-            resultListener.launch(intent)
-        }
-
+        setClickListener()
         setAdapter()
         observeLiveData()
         mViewModel.getImageListData(db, page)
@@ -102,6 +96,15 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun setClickListener() {
+        // 이미지 추가
+        mBinding.imageRecord.setOnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.type = "image/*"
+            resultListener.launch(intent)
+        }
     }
 
     /**
