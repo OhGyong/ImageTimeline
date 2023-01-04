@@ -57,6 +57,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeLiveData() {
+        /**
+         * 리스트 사이즈 observe
+         */
         mViewModel.listSize.observe(this) {
             println("이미지 사이즈 호출 결과 $it")
 
@@ -68,7 +71,9 @@ class MainActivity : AppCompatActivity() {
             mViewModel.getImageListData(db, page)
         }
 
-        // 이미지 리스트 호출
+        /**
+         * 이미지 리스트 observe
+         */
         mViewModel.imageList.observe(this) {
             println("이미지 호출 결과 $it")
 
@@ -93,7 +98,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // 이미지 삽입 후 리스트 호출
+        /**
+         * 이미지 삽입 observe
+         */
         mViewModel.insertObserve.observe(this) {
             println("이미지 삽입 호출 결과")
 
@@ -102,6 +109,9 @@ class MainActivity : AppCompatActivity() {
             mViewModel.getListSizeData(db)
         }
 
+        /**
+         * 이미지 삭제 observe
+         */
         mViewModel.deleteObserve.observe(this) {
             println("이미지 삭제 호출 결과")
 
@@ -120,16 +130,20 @@ class MainActivity : AppCompatActivity() {
         mAdapter = MainGridAdapter()
         mBinding.rvMain.adapter = mAdapter
 
-        // 아이템 롱 클릭으로 삭제
-        mAdapter.setOnItemClickListener(object: MainGridAdapter.OnItemClickListener{
+        /**
+         * 이미지 롱 클릭 시 컨텍스트 메뉴 띄우기
+         */
+        mAdapter.setOnItemLongClickListener(object: MainGridAdapter.OnItemClickListener{
             override fun onItemClick(v: View, data: GridViewData, pos: Int) {
                 imgUrl = data.imgUri
                 date = data.date
-                v.setOnLongClickListener { false }
                 v.setOnCreateContextMenuListener(this@MainActivity)
             }
         })
 
+        /**
+         * 페이징 처리
+         */
         mBinding.rvMain.addOnScrollListener(object: RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -145,18 +159,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setClickListener() {
-        // 이미지 추가
+        // 이미지 추가 버튼
         mBinding.ibAdd.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.type = "image/*"
-            resultListener.launch(intent)
+            imageAddResultListener.launch(intent)
         }
     }
 
     /**
      * 갤러리 불러오기
      */
-    private val resultListener =
+    private val imageAddResultListener =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             // 사진 선택 취소할 경우
             if(it.resultCode == RESULT_CANCELED){
@@ -177,7 +191,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    // 컨텍스트 메뉴 띄우기
+    /**
+     * 컨텍스트 메뉴로 이미지 삭제
+     */
     override fun onCreateContextMenu(
         menu: ContextMenu?,
         v: View?,

@@ -17,7 +17,7 @@ class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>
 
     private var listener: OnItemClickListener? = null
 
-    fun setOnItemClickListener(listener: OnItemClickListener){
+    fun setOnItemLongClickListener(listener: OnItemClickListener){
         this.listener = listener
     }
 
@@ -25,9 +25,10 @@ class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>
         fun bind(viewData: GridViewData) {
             mBinding.gridViewItem = viewData
 
-              if(adapterPosition != RecyclerView.NO_POSITION){
-                itemView.setOnClickListener {
+            if(adapterPosition != RecyclerView.NO_POSITION) {
+                itemView.setOnLongClickListener {
                     listener?.onItemClick(itemView, viewData, adapterPosition)
+                    false
                 }
             }
         }
