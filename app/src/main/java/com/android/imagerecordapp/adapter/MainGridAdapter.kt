@@ -60,7 +60,6 @@ class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>
 
     fun removeData(gridViewData: GridViewData) {
         val index = list.indexOf(gridViewData)
-        println(index)
         list.remove(gridViewData)
         notifyItemRemoved(index)
     }

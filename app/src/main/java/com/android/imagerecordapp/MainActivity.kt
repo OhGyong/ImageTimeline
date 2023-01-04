@@ -60,14 +60,15 @@ class MainActivity : AppCompatActivity() {
             println("이미지 호출 결과 $it")
 
             if(it.isNullOrEmpty()) {
+                mBinding.tvListEmpty.visibility = View.VISIBLE
                 // TODO : 빈 화면 표시
                 return@observe
             }
 
+            mBinding.tvListEmpty.visibility = View.GONE
+
             imageArrayList = it as ArrayList<GridViewData>
             mAdapter.setData(imageArrayList)
-
-
         }
 
         // 이미지 삽입 후 리스트 호출
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity() {
                 val rvPosition = (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
                 val totalCount = recyclerView.adapter?.itemCount?.minus(1)
 
-                if(rvPosition == totalCount) {
+                if(rvPosition == totalCount ) {
                     mViewModel.getImageListData(db, ++page)
                 }
             }

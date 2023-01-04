@@ -3,4 +3,7 @@
     <string name="image_add_button">image_add_button</string>
     <string name="image_view">image_view</string>
     <string name="splash_image">TODO</string>
+
+    <!-- main  -->
+    <string name="list_empty_desc">이미지를 추가해보세요!</string>
 </resources>
