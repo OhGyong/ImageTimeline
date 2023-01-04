@@ -49,24 +49,28 @@ class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>
 
     fun setData(imageList: ArrayList<GridViewData>) {
         list.addAll(imageList)
-        notifyItemRangeInserted(0, list.size-1)
+        notifyDataSetChanged()
+//        notifyItemRangeInserted(0, list.size-1)
     }
 
     fun insertData(imageList: ArrayList<GridViewData>) {
         list.clear()
         list.addAll(imageList)
-        notifyItemRangeChanged(0, list.size-1)
+        notifyDataSetChanged()
+//        notifyItemRangeChanged(0, list.size-1)
     }
 
     fun removeData(gridViewData: GridViewData) {
         val index = list.indexOf(gridViewData)
         list.remove(gridViewData)
-        notifyItemRemoved(index)
+        notifyDataSetChanged()
+//        notifyItemRemoved(index)
     }
 
     fun setPaginationList(imageList: ArrayList<GridViewData>) {
         val positionStart = imageList.size-1
         list.addAll(imageList)
-        notifyItemRangeChanged(positionStart, imageList.size)
+        notifyDataSetChanged()
+//        notifyItemRangeChanged(positionStart, imageList.size)
     }
 }

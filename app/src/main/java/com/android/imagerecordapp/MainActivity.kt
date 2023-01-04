@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
     private var date = ""
     private var imageArrayList = arrayListOf<GridViewData>()
     private var page = 1
-    private var listSize = 0
+    private var dbListSize = 0
+    private var isInsert = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,11 +59,12 @@ class MainActivity : AppCompatActivity() {
     private fun observeLiveData() {
         mViewModel.listSize.observe(this) {
             println("이미지 사이즈 호출 결과 $it")
+
             if(it == 0) {
                 mBinding.tvListEmpty.visibility = View.VISIBLE
                 return@observe
             }
-            listSize = it-1
+            dbListSize = it-1
             mViewModel.getImageListData(db, page)
         }
 
@@ -78,6 +80,12 @@ class MainActivity : AppCompatActivity() {
             mBinding.tvListEmpty.visibility = View.GONE
             imageArrayList = it as ArrayList<GridViewData>
 
+            if(isInsert) {
+                mAdapter.insertData(imageArrayList)
+                isInsert = false
+                return@observe
+            }
+
             if(page == 1){
                 mAdapter.setData(imageArrayList)
             }else {
@@ -87,8 +95,9 @@ class MainActivity : AppCompatActivity() {
 
         // 이미지 삽입 후 리스트 호출
         mViewModel.getInsertData.observe(this) {
-            imageArrayList = it as ArrayList<GridViewData>
-            mAdapter.insertData(imageArrayList)
+            page = 1
+            isInsert = true
+            mViewModel.getListSizeData(db)
         }
     }
 
@@ -113,8 +122,7 @@ class MainActivity : AppCompatActivity() {
                 val rvPosition = (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
                 val totalCount = recyclerView.adapter?.itemCount?.minus(1)
 
-                if(rvPosition == totalCount && listSize !=totalCount) {
-                    println("listSize $listSize   totalCount $totalCount")
+                if(rvPosition == totalCount && dbListSize !=totalCount && imageArrayList.isNotEmpty()) {
                     mViewModel.getImageListData(db, ++page)
                 }
             }
@@ -167,7 +175,12 @@ class MainActivity : AppCompatActivity() {
             mViewModel.deleteImageData(db, imgUrl)
             imageArrayList.remove(GridViewData(date , imgUrl))
             mAdapter.removeData(GridViewData(date , imgUrl))
+            dbListSize--
             Toast.makeText(mBinding.root.context, "삭제 되었습니다.", Toast.LENGTH_SHORT).show()
+
+            if(imageArrayList.isEmpty()) {
+                mBinding.tvListEmpty.visibility = View.VISIBLE
+            }
             true
         }
     }
