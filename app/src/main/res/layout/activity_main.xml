@@ -14,7 +14,7 @@
         tools:context="com.android.imagerecordapp.MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/view_grid"
+            android:id="@+id/rv_main"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:padding="6dp"
@@ -28,7 +28,7 @@
             tools:listitem="@layout/grid_view_item" />
 
         <ImageButton
-            android:id="@+id/image_record"
+            android:id="@+id/ib_add"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@android:color/transparent"

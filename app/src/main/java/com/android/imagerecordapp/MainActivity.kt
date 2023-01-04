@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setAdapter() {
         mAdapter = MainGridAdapter()
-        mBinding.viewGrid.adapter = mAdapter
+        mBinding.rvMain.adapter = mAdapter
 
         // 아이템 롱 클릭으로 삭제
         mAdapter.setOnItemClickListener(object: MainGridAdapter.OnItemClickListener{
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        mBinding.viewGrid.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+        mBinding.rvMain.addOnScrollListener(object: RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setClickListener() {
         // 이미지 추가
-        mBinding.imageRecord.setOnClickListener {
+        mBinding.ibAdd.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.type = "image/*"
             resultListener.launch(intent)

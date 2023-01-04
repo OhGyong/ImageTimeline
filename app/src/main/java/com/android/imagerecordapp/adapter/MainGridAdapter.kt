@@ -49,13 +49,15 @@ class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>
 
     fun setData(imageList: ArrayList<GridViewData>) {
         list.addAll(imageList)
-        notifyItemRangeInserted(0, list.size-1)
+//        notifyItemRangeInserted(0, list.size-1)
+        notifyDataSetChanged()
     }
 
     fun insertData(imageList: ArrayList<GridViewData>) {
         list.clear()
         list.addAll(imageList)
-        notifyItemRangeChanged(0, list.size-1)
+//        notifyItemRangeChanged(0, list.size-1)
+        notifyDataSetChanged()
     }
 
     fun removeData(gridViewData: GridViewData) {
