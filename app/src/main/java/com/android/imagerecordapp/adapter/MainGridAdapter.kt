@@ -63,4 +63,10 @@ class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>
         list.remove(gridViewData)
         notifyItemRemoved(index)
     }
+
+    fun setPaginationList(imageList: ArrayList<GridViewData>) {
+        val positionStart = imageList.size-1
+        list.addAll(imageList)
+        notifyItemRangeChanged(positionStart, imageList.size)
+    }
 }

@@ -18,4 +18,7 @@ interface GridViewDao {
 
     @Query("DELETE FROM gridviewdata WHERE img_uri = :imgUri")
     fun deleteData(imgUri: String)
+
+    @Query("SELECT COUNT(*) FROM gridviewdata")
+    fun getListSize(): Int
 }

@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 class MainViewModel: ViewModel() {
     val imageList: MutableLiveData<List<GridViewData>> = MutableLiveData()
     val getInsertData: MutableLiveData<List<GridViewData>> = MutableLiveData()
+    val listSize: MutableLiveData<Int> = MutableLiveData()
 
     fun getImageListData(db: GridViewDatabase, page: Int){
         viewModelScope.launch(Dispatchers.IO) {
@@ -34,6 +35,12 @@ class MainViewModel: ViewModel() {
     fun deleteImageData(db: GridViewDatabase, uri: String){
         viewModelScope.launch(Dispatchers.IO) {
             db.gridViewDao().deleteData(uri) // 데이터 삭제
+        }
+    }
+
+    fun getListSizeData(db: GridViewDatabase) {
+        viewModelScope.launch(Dispatchers.IO) {
+            listSize.postValue(db.gridViewDao().getListSize())
         }
     }
 }

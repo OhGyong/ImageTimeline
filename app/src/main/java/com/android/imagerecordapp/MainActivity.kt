@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private var date = ""
     private var imageArrayList = arrayListOf<GridViewData>()
     private var page = 1
+    private var listSize = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,24 +52,37 @@ class MainActivity : AppCompatActivity() {
         setAdapter()
         observeLiveData()
 
-        mViewModel.getImageListData(db, page)
+        mViewModel.getListSizeData(db)
     }
 
     private fun observeLiveData() {
+        mViewModel.listSize.observe(this) {
+            println("이미지 사이즈 호출 결과 $it")
+            if(it == 0) {
+                mBinding.tvListEmpty.visibility = View.VISIBLE
+                return@observe
+            }
+            listSize = it-1
+            mViewModel.getImageListData(db, page)
+        }
+
         // 이미지 리스트 호출
         mViewModel.imageList.observe(this) {
             println("이미지 호출 결과 $it")
 
             if(it.isNullOrEmpty()) {
                 mBinding.tvListEmpty.visibility = View.VISIBLE
-                // TODO : 빈 화면 표시
                 return@observe
             }
 
             mBinding.tvListEmpty.visibility = View.GONE
-
             imageArrayList = it as ArrayList<GridViewData>
-            mAdapter.setData(imageArrayList)
+
+            if(page == 1){
+                mAdapter.setData(imageArrayList)
+            }else {
+                mAdapter.setPaginationList(it)
+            }
         }
 
         // 이미지 삽입 후 리스트 호출
@@ -99,7 +113,8 @@ class MainActivity : AppCompatActivity() {
                 val rvPosition = (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
                 val totalCount = recyclerView.adapter?.itemCount?.minus(1)
 
-                if(rvPosition == totalCount ) {
+                if(rvPosition == totalCount && listSize !=totalCount) {
+                    println("listSize $listSize   totalCount $totalCount")
                     mViewModel.getImageListData(db, ++page)
                 }
             }
