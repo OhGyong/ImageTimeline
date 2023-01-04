@@ -57,7 +57,13 @@ class MainActivity : AppCompatActivity() {
     private fun observeLiveData() {
         // 이미지 리스트 호출
         mViewModel.imageList.observe(this) {
-            println("observe $it")
+            println("이미지 호출 결과 $it")
+
+            if(it.isNullOrEmpty()) {
+                // TODO : 빈 화면 표시
+                return@observe
+            }
+
             imageArrayList = it as ArrayList<GridViewData>
             mAdapter.setData(imageArrayList)
 
