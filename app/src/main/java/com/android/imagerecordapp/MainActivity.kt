@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         setClickListener()
         setAdapter()
         observeLiveData()
+
         mViewModel.getImageListData(db, page)
     }
 
