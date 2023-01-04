@@ -94,10 +94,25 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 이미지 삽입 후 리스트 호출
-        mViewModel.getInsertData.observe(this) {
+        mViewModel.insertObserve.observe(this) {
+            println("이미지 삽입 호출 결과")
+
             page = 1
             isInsert = true
             mViewModel.getListSizeData(db)
+        }
+
+        mViewModel.deleteObserve.observe(this) {
+            println("이미지 삭제 호출 결과")
+
+            imageArrayList.remove(GridViewData(date , imgUrl))
+            mAdapter.removeData(GridViewData(date , imgUrl))
+            dbListSize--
+            Toast.makeText(mBinding.root.context, "삭제 되었습니다.", Toast.LENGTH_SHORT).show()
+
+            if(imageArrayList.isEmpty()) {
+                mBinding.tvListEmpty.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -173,14 +188,6 @@ class MainActivity : AppCompatActivity() {
         // 메뉴의 item 선택 시 해당 이미지 삭제
         item.setOnMenuItemClickListener {
             mViewModel.deleteImageData(db, imgUrl)
-            imageArrayList.remove(GridViewData(date , imgUrl))
-            mAdapter.removeData(GridViewData(date , imgUrl))
-            dbListSize--
-            Toast.makeText(mBinding.root.context, "삭제 되었습니다.", Toast.LENGTH_SHORT).show()
-
-            if(imageArrayList.isEmpty()) {
-                mBinding.tvListEmpty.visibility = View.VISIBLE
-            }
             true
         }
     }
