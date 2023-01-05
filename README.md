@@ -16,6 +16,11 @@ Grid RecyclerView, Room, contentResolver, ContextMenu, AAC(DataBinding, ViewMode
 
 
 ### 일정
+- 2023.01.03~04<br/>
+  페이징 처리<br/>
+  이미지 삽입/삭제 개선<br/>
+  이미지 롱 클릭 개선
+
 - 2022.12.29<br/>
   이미지 사이즈 조정<br/>
   viewModelScope로 변경<br/>
