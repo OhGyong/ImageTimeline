@@ -39,7 +39,7 @@
             android:layout_marginTop="2dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/image_view"
-            android:padding="5dp"
+            android:padding="3dp"
             android:scaleType="fitXY"
             app:imageUrl="@{imageViewItem.imgUri}"
             app:layout_constraintBottom_toBottomOf="parent"
