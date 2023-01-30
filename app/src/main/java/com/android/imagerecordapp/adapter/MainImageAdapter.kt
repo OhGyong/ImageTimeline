@@ -4,16 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.android.imagerecordapp.data.GridViewData
-import com.android.imagerecordapp.databinding.GridViewItemBinding
+import com.android.imagerecordapp.data.ImageViewData
+import com.android.imagerecordapp.databinding.ImageViewItemBinding
 
-class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>() {
+class MainImageAdapter : RecyclerView.Adapter<MainImageAdapter.MainImageViewHolder>() {
     // Activity에서 사용하기 위한 클릭 리스너
     interface OnItemClickListener{
-        fun onItemClick(v: View, data: GridViewData, pos: Int)
+        fun onItemClick(v: View, data: ImageViewData, pos: Int)
     }
 
-    private var list = ArrayList<GridViewData>()
+    private var list = ArrayList<ImageViewData>()
 
     private var listener: OnItemClickListener? = null
 
@@ -21,9 +21,9 @@ class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>
         this.listener = listener
     }
 
-    inner class MainGridViewHolder(private val mBinding: GridViewItemBinding): RecyclerView.ViewHolder(mBinding.root){
-        fun bind(viewData: GridViewData) {
-            mBinding.gridViewItem = viewData
+    inner class MainImageViewHolder(private val mBinding: ImageViewItemBinding): RecyclerView.ViewHolder(mBinding.root){
+        fun bind(viewData: ImageViewData) {
+            mBinding.imageViewItem = viewData
 
             if(adapterPosition != RecyclerView.NO_POSITION) {
                 itemView.setOnLongClickListener {
@@ -34,13 +34,13 @@ class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainGridViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainImageViewHolder {
         val binding =
-            GridViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MainGridViewHolder(binding)
+            ImageViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MainImageViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MainGridViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MainImageViewHolder, position: Int) {
         holder.bind(list[position])
     }
 
@@ -48,27 +48,27 @@ class MainGridAdapter : RecyclerView.Adapter<MainGridAdapter.MainGridViewHolder>
         return list.count()
     }
 
-    fun setData(imageList: ArrayList<GridViewData>) {
+    fun setData(imageList: ArrayList<ImageViewData>) {
         list.addAll(imageList)
         notifyDataSetChanged()
 //        notifyItemRangeInserted(0, list.size-1)
     }
 
-    fun insertData(imageList: ArrayList<GridViewData>) {
+    fun insertData(imageList: ArrayList<ImageViewData>) {
         list.clear()
         list.addAll(imageList)
         notifyDataSetChanged()
 //        notifyItemRangeChanged(0, list.size-1)
     }
 
-    fun removeData(gridViewData: GridViewData) {
-        val index = list.indexOf(gridViewData)
-        list.remove(gridViewData)
+    fun removeData(imageViewData: ImageViewData) {
+        val index = list.indexOf(imageViewData)
+        list.remove(imageViewData)
         notifyDataSetChanged()
 //        notifyItemRemoved(index)
     }
 
-    fun setPaginationList(imageList: ArrayList<GridViewData>) {
+    fun setPaginationList(imageList: ArrayList<ImageViewData>) {
         val positionStart = imageList.size-1
         list.addAll(imageList)
         notifyDataSetChanged()

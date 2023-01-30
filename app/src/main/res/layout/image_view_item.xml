@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="gridViewItem"
-            type="com.android.imagerecordapp.data.GridViewData" />
+            name="imageViewItem"
+            type="com.android.imagerecordapp.data.ImageViewData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             android:id="@+id/tv_image_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{gridViewItem.date}"
+            android:text="@{imageViewItem.date}"
             android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -38,7 +38,7 @@
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:padding="5dp"
-            app:imageUrl="@{gridViewItem.imgUri}"
+            app:imageUrl="@{imageViewItem.imgUri}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_image_date"

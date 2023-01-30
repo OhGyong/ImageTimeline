@@ -13,9 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.android.imagerecordapp.adapter.MainGridAdapter
-import com.android.imagerecordapp.data.GridViewData
-import com.android.imagerecordapp.data.GridViewDatabase
+import com.android.imagerecordapp.adapter.MainImageAdapter
+import com.android.imagerecordapp.data.ImageViewData
+import com.android.imagerecordapp.data.ImageViewDatabase
 import com.android.imagerecordapp.databinding.ActivityMainBinding
 import java.sql.Date
 
@@ -23,11 +23,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mViewModel: MainViewModel
-    private lateinit var mAdapter: MainGridAdapter
-    private lateinit var db: GridViewDatabase
+    private lateinit var mAdapter: MainImageAdapter
+    private lateinit var db: ImageViewDatabase
     private var imgUrl = ""
     private var date = ""
-    private var imageArrayList = arrayListOf<GridViewData>()
+    private var imageArrayList = arrayListOf<ImageViewData>()
     private var page = 1
     private var dbListSize = 0
     private var isInsert = false
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         // room의 db 초기화
         db = Room.databaseBuilder(
-            applicationContext, GridViewDatabase::class.java, "database"
+            applicationContext, ImageViewDatabase::class.java, "database"
         ).build()
 
         setClickListener()
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             mBinding.tvListEmpty.visibility = View.GONE
-            imageArrayList = it as ArrayList<GridViewData>
+            imageArrayList = it as ArrayList<ImageViewData>
 
             if(isInsert) {
                 mAdapter.insertData(imageArrayList)
@@ -115,8 +115,8 @@ class MainActivity : AppCompatActivity() {
         mViewModel.deleteObserve.observe(this) {
             println("이미지 삭제 호출 결과")
 
-            imageArrayList.remove(GridViewData(date , imgUrl))
-            mAdapter.removeData(GridViewData(date , imgUrl))
+            imageArrayList.remove(ImageViewData(date , imgUrl))
+            mAdapter.removeData(ImageViewData(date , imgUrl))
             dbListSize--
             Toast.makeText(mBinding.root.context, "삭제 되었습니다.", Toast.LENGTH_SHORT).show()
 
@@ -127,14 +127,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAdapter() {
-        mAdapter = MainGridAdapter()
+        mAdapter = MainImageAdapter()
         mBinding.rvMain.adapter = mAdapter
 
         /**
          * 이미지 롱 클릭 시 컨텍스트 메뉴 띄우기
          */
-        mAdapter.setOnItemLongClickListener(object: MainGridAdapter.OnItemClickListener{
-            override fun onItemClick(v: View, data: GridViewData, pos: Int) {
+        mAdapter.setOnItemLongClickListener(object: MainImageAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, data: ImageViewData, pos: Int) {
                 imgUrl = data.imgUri
                 date = data.date
                 v.setOnCreateContextMenuListener(this@MainActivity)
