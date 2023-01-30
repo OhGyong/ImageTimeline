@@ -61,6 +61,9 @@ dependencies {
     // Glide 의존성 추가
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
+    // paging3
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+
     testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
