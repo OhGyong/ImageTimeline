@@ -10,13 +10,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
+import androidx.lifecycle.lifecycleScope
 import com.android.imagerecordapp.adapter.MainImageAdapter
 import com.android.imagerecordapp.data.ImageViewData
 import com.android.imagerecordapp.data.ImageViewDatabase
 import com.android.imagerecordapp.databinding.ActivityMainBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.sql.Date
 
 class MainActivity : AppCompatActivity() {
@@ -24,13 +24,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mViewModel: MainViewModel
     private lateinit var mAdapter: MainImageAdapter
-    private lateinit var db: ImageViewDatabase
     private var imgUrl = ""
     private var date = ""
-    private var imageArrayList = arrayListOf<ImageViewData>()
-    private var page = 1
-    private var dbListSize = 0
-    private var isInsert = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,91 +39,42 @@ class MainActivity : AppCompatActivity() {
 
         mViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        // room의 db 초기화
-        db = Room.databaseBuilder(
-            applicationContext, ImageViewDatabase::class.java, "database"
-        ).build()
+        ImageViewDatabase.getDbInstance(this)
 
         setClickListener()
         setAdapter()
         observeLiveData()
-
-        mViewModel.getListSizeData(db)
     }
 
     private fun observeLiveData() {
-        /**
-         * 리스트 사이즈 observe
-         */
-        mViewModel.listSize.observe(this) {
-            println("이미지 사이즈 호출 결과 $it")
-
-            if(it == 0) {
-                mBinding.tvListEmpty.visibility = View.VISIBLE
-                return@observe
-            }
-            dbListSize = it-1
-            mViewModel.getImageListData(db, page)
-        }
-
-        /**
-         * 이미지 리스트 observe
-         */
-        mViewModel.imageList.observe(this) {
-            println("이미지 호출 결과 $it")
-
-            if(it.isNullOrEmpty()) {
-                mBinding.tvListEmpty.visibility = View.VISIBLE
-                return@observe
-            }
-
-            mBinding.tvListEmpty.visibility = View.GONE
-            imageArrayList = it as ArrayList<ImageViewData>
-
-            if(isInsert) {
-                mAdapter.insertData(imageArrayList)
-                isInsert = false
-                return@observe
-            }
-
-            if(page == 1){
-                mAdapter.setData(imageArrayList)
-            }else {
-                mAdapter.setPaginationList(it)
-            }
-        }
-
         /**
          * 이미지 삽입 observe
          */
         mViewModel.insertObserve.observe(this) {
             println("이미지 삽입 호출 결과")
-
-            page = 1
-            isInsert = true
-            mViewModel.getListSizeData(db)
+            mAdapter.refresh()
         }
 
         /**
          * 이미지 삭제 observe
          */
         mViewModel.deleteObserve.observe(this) {
-            println("이미지 삭제 호출 결과")
-
-            imageArrayList.remove(ImageViewData(date , imgUrl))
-            mAdapter.removeData(ImageViewData(date , imgUrl))
-            dbListSize--
-            Toast.makeText(mBinding.root.context, "삭제 되었습니다.", Toast.LENGTH_SHORT).show()
-
-            if(imageArrayList.isEmpty()) {
-                mBinding.tvListEmpty.visibility = View.VISIBLE
-            }
+            mAdapter.refresh()
         }
     }
 
     private fun setAdapter() {
         mAdapter = MainImageAdapter()
         mBinding.rvMain.adapter = mAdapter
+
+        /**
+         * 이미지 리스트 flow
+         */
+        lifecycleScope.launch {
+            mViewModel.getImageListData().collectLatest {
+                mAdapter.submitData(lifecycle, it)
+            }
+        }
 
         /**
          * 이미지 롱 클릭 시 컨텍스트 메뉴 띄우기
@@ -138,22 +84,6 @@ class MainActivity : AppCompatActivity() {
                 imgUrl = data.imgUri
                 date = data.date
                 v.setOnCreateContextMenuListener(this@MainActivity)
-            }
-        })
-
-        /**
-         * 페이징 처리
-         */
-        mBinding.rvMain.addOnScrollListener(object: RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val rvPosition = (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
-                val totalCount = recyclerView.adapter?.itemCount?.minus(1)
-
-                if(rvPosition == totalCount && dbListSize !=totalCount && imageArrayList.isNotEmpty()) {
-                    mViewModel.getImageListData(db, ++page)
-                }
             }
         })
     }
@@ -187,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                 val path = cursor.getLong(3) // 날짜 정보
 
                 // 데이터 베이스에 사진 정보 저장
-                mViewModel.inputImageData(db, Date(path).toString(), uri.toString())
+                mViewModel.inputImageData(ImageViewDatabase.imageViewDB!!, Date(path).toString(), uri.toString())
             }
         }
 
@@ -203,7 +133,7 @@ class MainActivity : AppCompatActivity() {
 
         // 메뉴의 item 선택 시 해당 이미지 삭제
         item.setOnMenuItemClickListener {
-            mViewModel.deleteImageData(db, imgUrl)
+            mViewModel.deleteImageData(ImageViewDatabase.imageViewDB!!, imgUrl)
             true
         }
     }

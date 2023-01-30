@@ -3,26 +3,22 @@ package com.android.imagerecordapp
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.android.imagerecordapp.data.ImageViewData
 import com.android.imagerecordapp.data.ImageViewDatabase
+import com.android.imagerecordapp.repository.ImageViewRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
-    val imageList: MutableLiveData<List<ImageViewData>> = MutableLiveData()
-    val listSize: MutableLiveData<Int> = MutableLiveData()
     val insertObserve: MutableLiveData<Unit> = MutableLiveData()
     val deleteObserve: MutableLiveData<Unit> = MutableLiveData()
 
 
-    fun getImageListData(db: ImageViewDatabase, page: Int){
-        viewModelScope.launch(Dispatchers.IO) {
-            try{
-                imageList.postValue(db.imageViewDao().getAll(page))
-            }catch (error: Exception){
-                println("이미지 불러오기 실패 $error")
-            }
-        }
+    fun getImageListData() : Flow<PagingData<ImageViewData>> {
+        return ImageViewRepository().getImageViewPagingSource().cachedIn(viewModelScope)
     }
 
     // 데이터 베이스에 사진 정보 저장
@@ -36,12 +32,6 @@ class MainViewModel: ViewModel() {
     fun deleteImageData(db: ImageViewDatabase, uri: String){
         viewModelScope.launch(Dispatchers.IO) {
             deleteObserve.postValue(db.imageViewDao().deleteData(uri))
-        }
-    }
-
-    fun getListSizeData(db: ImageViewDatabase) {
-        viewModelScope.launch(Dispatchers.IO) {
-            listSize.postValue(db.imageViewDao().getListSize())
         }
     }
 }
