@@ -15,6 +15,7 @@ import com.android.imagerecordapp.adapter.MainImageAdapter
 import com.android.imagerecordapp.data.ImageViewData
 import com.android.imagerecordapp.data.ImageViewDatabase
 import com.android.imagerecordapp.databinding.ActivityMainBinding
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.sql.Date
@@ -73,6 +74,15 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             mViewModel.getImageListData().collectLatest {
                 mAdapter.submitData(lifecycle, it)
+            }
+        }
+
+        // https://stackoverflow.com/questions/63284793/check-if-the-list-is-empty-on-the-first-request-in-paging-3-0
+
+        mAdapter.addLoadStateListener { combinedLoadStates ->
+            if(combinedLoadStates.append.endOfPaginationReached) {
+
+                println("mAdapter.itemCount :  ${mAdapter.itemCount}")
             }
         }
 
