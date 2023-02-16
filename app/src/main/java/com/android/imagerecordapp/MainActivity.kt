@@ -77,12 +77,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // https://stackoverflow.com/questions/63284793/check-if-the-list-is-empty-on-the-first-request-in-paging-3-0
-
+        /**
+         * 리스트 없을 시 Empty View 처리
+         */
         mAdapter.addLoadStateListener { combinedLoadStates ->
             if(combinedLoadStates.append.endOfPaginationReached) {
-
-                println("mAdapter.itemCount :  ${mAdapter.itemCount}")
+                if(mAdapter.itemCount < 1) {
+                    mBinding.tvListEmpty.visibility = View.GONE
+                }else {
+                    mBinding.tvListEmpty.visibility = View.VISIBLE
+                }
             }
         }
 
