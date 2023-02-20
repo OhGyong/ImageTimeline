@@ -15,7 +15,6 @@ import com.android.imagerecordapp.adapter.MainImageAdapter
 import com.android.imagerecordapp.data.ImageViewData
 import com.android.imagerecordapp.data.ImageViewDatabase
 import com.android.imagerecordapp.databinding.ActivityMainBinding
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.sql.Date
@@ -83,9 +82,9 @@ class MainActivity : AppCompatActivity() {
         mAdapter.addLoadStateListener { combinedLoadStates ->
             if(combinedLoadStates.append.endOfPaginationReached) {
                 if(mAdapter.itemCount < 1) {
-                    mBinding.tvListEmpty.visibility = View.GONE
-                }else {
                     mBinding.tvListEmpty.visibility = View.VISIBLE
+                }else {
+                    mBinding.tvListEmpty.visibility = View.GONE
                 }
             }
         }
