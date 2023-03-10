@@ -12,7 +12,7 @@ Grid RecyclerView, Room, contentResolver, ContextMenu, AAC(DataBinding, ViewMode
 3. ~~같은 사진 중복 등록 수정.~~
 4. ~~사진 삭제 기능 → 사진 선택도 가능해야 함.~~
 5. ~~다크 모드 비활성화~~
-6. Paging 3 적용
+6. ~~Paging 3 적용~~
 7. Flow 적용
 
 
