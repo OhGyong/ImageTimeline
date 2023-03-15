@@ -4,7 +4,9 @@
 https://user-images.githubusercontent.com/105263450/171398840-7fb105e5-db45-4820-be09-9e9f431c75d6.mp4
 
 ### 사용 기술
-Grid RecyclerView, Room, contentResolver, ContextMenu, AAC(DataBinding, ViewModel, LiveData)
+- ContentResolver
+- AAC(DataBinding, ViewModel, LiveData, Room, Paging3)
+- Coroutine, flow
 
 ### 해야할 작업
 1. ~~갤러리에서 뒤로 가기 시 앱 종료되는 것 수정.~~
