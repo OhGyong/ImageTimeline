@@ -4,7 +4,9 @@
 https://user-images.githubusercontent.com/105263450/171398840-7fb105e5-db45-4820-be09-9e9f431c75d6.mp4
 
 ### 사용 기술
-Grid RecyclerView, Room, contentResolver, ContextMenu, AAC(DataBinding, ViewModel, LiveData)
+- ContentResolver
+- AAC(DataBinding, ViewModel, LiveData, Room, Paging3)
+- Coroutine, flow
 
 ### 해야할 작업
 1. ~~갤러리에서 뒤로 가기 시 앱 종료되는 것 수정.~~
@@ -12,12 +14,22 @@ Grid RecyclerView, Room, contentResolver, ContextMenu, AAC(DataBinding, ViewMode
 3. ~~같은 사진 중복 등록 수정.~~
 4. ~~사진 삭제 기능 → 사진 선택도 가능해야 함.~~
 5. ~~다크 모드 비활성화~~
-6. Paging 3 적용
+6. ~~Paging 3 적용~~
 7. Flow 적용
 
 
 ### 일정
-- 2023.01.03~04<br/>
+- 2023.02.20<br/>
+  스플래시 thread sleep에서 coroutine delay로 수정
+
+- 2023.02.15~02.16<br/>
+  리스트 없을 시 Empty View 처리
+
+- 2023.01.30<br/>
+  Paging3 라이브러리 적용<br/>
+  리사이클러 뷰 UI 수정
+
+- 2023.01.03~01.04<br/>
   페이징 처리<br/>
   이미지 삽입/삭제 개선<br/>
   이미지 롱 클릭 개선
@@ -26,7 +38,6 @@ Grid RecyclerView, Room, contentResolver, ContextMenu, AAC(DataBinding, ViewMode
   이미지 사이즈 조정<br/>
   viewModelScope로 변경<br/>
   RecyclerView의 notify 메서드 수정
-
 
 - 2022.12.18~12.19<br/>
   리스트 갱신 코드 수정<br/>
