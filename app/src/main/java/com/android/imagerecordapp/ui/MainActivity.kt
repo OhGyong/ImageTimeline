@@ -1,4 +1,4 @@
-package com.android.imagerecordapp
+package com.android.imagerecordapp.ui
 
 import android.content.Intent
 import android.database.Cursor
@@ -15,6 +15,7 @@ import com.android.imagerecordapp.adapter.MainImageAdapter
 import com.android.imagerecordapp.data.ImageViewData
 import com.android.imagerecordapp.data.ImageViewDatabase
 import com.android.imagerecordapp.databinding.ActivityMainBinding
+import com.android.imagerecordapp.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.sql.Date

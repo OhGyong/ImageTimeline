@@ -10,12 +10,12 @@
         android:theme="@style/Theme.ImageRecordApp">
 
         <activity
-            android:name="com.android.imagerecordapp.MainActivity"
+            android:name="com.android.imagerecordapp.ui.MainActivity"
             android:exported="true">
         </activity>
 
         <activity
-            android:name="com.android.imagerecordapp.SplashActivity"
+            android:name="com.android.imagerecordapp.ui.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,9 +1,10 @@
-package com.android.imagerecordapp
+package com.android.imagerecordapp.ui
 
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import com.android.imagerecordapp.R
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking

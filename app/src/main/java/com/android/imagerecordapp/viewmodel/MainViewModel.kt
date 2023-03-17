@@ -1,4 +1,4 @@
-package com.android.imagerecordapp
+package com.android.imagerecordapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
