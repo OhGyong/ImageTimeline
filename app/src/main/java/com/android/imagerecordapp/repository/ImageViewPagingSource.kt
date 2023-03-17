@@ -6,8 +6,11 @@ import androidx.room.withTransaction
 import com.android.imagerecordapp.data.ImageViewData
 import com.android.imagerecordapp.data.ImageViewDatabase
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ImageViewPagingSource: PagingSource<Int, ImageViewData>() {
+@Singleton
+class ImageViewPagingSource @Inject constructor(private val database: ImageViewDatabase): PagingSource<Int, ImageViewData>() {
     override fun getRefreshKey(state: PagingState<Int, ImageViewData>): Int? {
         println("getRefreshKey $state")
         return state.anchorPosition?.let { anchorPosition ->
@@ -21,8 +24,8 @@ class ImageViewPagingSource: PagingSource<Int, ImageViewData>() {
         return try {
             var data: List<ImageViewData>? = null
 
-            ImageViewDatabase.imageViewDB!!.withTransaction {
-                data = ImageViewDatabase.imageViewDB!!.imageViewDao().getAll(page)
+            database.withTransaction {
+             data = database.imageViewDao().getAll(page)
             }
 
             LoadResult.Page(

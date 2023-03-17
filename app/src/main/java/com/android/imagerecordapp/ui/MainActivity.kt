@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import com.android.imagerecordapp.adapter.MainImageAdapter
 import com.android.imagerecordapp.data.ImageViewData
-import com.android.imagerecordapp.data.ImageViewDatabase
 import com.android.imagerecordapp.databinding.ActivityMainBinding
 import com.android.imagerecordapp.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,8 +39,6 @@ class MainActivity : AppCompatActivity() {
 
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-
-        ImageViewDatabase.getDbInstance(this)
 
         setClickListener()
         setAdapter()
@@ -131,7 +128,7 @@ class MainActivity : AppCompatActivity() {
                 val path = cursor.getLong(3) // 날짜 정보
 
                 // 데이터 베이스에 사진 정보 저장
-                mViewModel.inputImageData(ImageViewDatabase.imageViewDB!!, Date(path).toString(), uri.toString())
+                mViewModel.inputImageData(Date(path).toString(), uri.toString())
             }
         }
 
@@ -147,7 +144,7 @@ class MainActivity : AppCompatActivity() {
 
         // 메뉴의 item 선택 시 해당 이미지 삭제
         item.setOnMenuItemClickListener {
-            mViewModel.deleteImageData(ImageViewDatabase.imageViewDB!!, imgUrl)
+            mViewModel.deleteImageData(imgUrl)
             true
         }
     }
