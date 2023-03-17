@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.imagerecordapp.data.ImageViewData
 import com.android.imagerecordapp.databinding.ImageViewItemBinding
+import javax.inject.Inject
 
-class MainImageAdapter : PagingDataAdapter<ImageViewData, MainImageAdapter.MainImageViewHolder>(ARTICLE_DIFF_CALLBACK) {
+class MainImageAdapter @Inject constructor() : PagingDataAdapter<ImageViewData, MainImageAdapter.MainImageViewHolder>(ARTICLE_DIFF_CALLBACK) {
     // Activity에서 사용하기 위한 클릭 리스너
     interface OnItemClickListener{
         fun onItemClick(v: View, data: ImageViewData, pos: Int)

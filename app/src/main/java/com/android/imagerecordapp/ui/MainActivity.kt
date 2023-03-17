@@ -20,13 +20,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.sql.Date
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
     private val mViewModel: MainViewModel by viewModels()
-    private lateinit var mAdapter: MainImageAdapter
+    @Inject lateinit var mAdapter: MainImageAdapter
     private var imgUrl = ""
     private var date = ""
 
@@ -65,7 +66,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAdapter() {
-        mAdapter = MainImageAdapter()
         mBinding.rvMain.adapter = mAdapter
 
         /**
