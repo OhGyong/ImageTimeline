@@ -16,6 +16,7 @@ https://user-images.githubusercontent.com/105263450/171398840-7fb105e5-db45-4820
 5. ~~다크 모드 비활성화~~
 6. ~~Paging 3 적용~~
 7. Flow 적용
+8. Hilt 적용
 
 
 ### 일정
