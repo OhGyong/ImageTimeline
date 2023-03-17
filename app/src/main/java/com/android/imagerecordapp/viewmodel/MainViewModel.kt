@@ -8,11 +8,15 @@ import androidx.paging.cachedIn
 import com.android.imagerecordapp.data.ImageViewData
 import com.android.imagerecordapp.data.ImageViewDatabase
 import com.android.imagerecordapp.repository.ImageViewRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MainViewModel: ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor() : ViewModel() {
     val insertObserve: MutableLiveData<Unit> = MutableLiveData()
     val deleteObserve: MutableLiveData<Unit> = MutableLiveData()
 

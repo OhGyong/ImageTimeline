@@ -7,23 +7,25 @@ import android.view.ContextMenu
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.android.imagerecordapp.adapter.MainImageAdapter
 import com.android.imagerecordapp.data.ImageViewData
 import com.android.imagerecordapp.data.ImageViewDatabase
 import com.android.imagerecordapp.databinding.ActivityMainBinding
 import com.android.imagerecordapp.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.sql.Date
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var mViewModel: MainViewModel
+    private val mViewModel: MainViewModel by viewModels()
     private lateinit var mAdapter: MainImageAdapter
     private var imgUrl = ""
     private var date = ""
@@ -37,8 +39,6 @@ class MainActivity : AppCompatActivity() {
 
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-
-        mViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         ImageViewDatabase.getDbInstance(this)
 
