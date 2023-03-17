@@ -7,6 +7,7 @@ https://user-images.githubusercontent.com/105263450/171398840-7fb105e5-db45-4820
 - ContentResolver
 - AAC(DataBinding, ViewModel, LiveData, Room, Paging3)
 - Coroutine, flow
+- Hilt
 
 ### 해야할 작업
 1. ~~갤러리에서 뒤로 가기 시 앱 종료되는 것 수정.~~
@@ -16,7 +17,7 @@ https://user-images.githubusercontent.com/105263450/171398840-7fb105e5-db45-4820
 5. ~~다크 모드 비활성화~~
 6. ~~Paging 3 적용~~
 7. Flow 적용
-8. Hilt 적용
+8. ~~Hilt 적용~~
 
 
 ### 일정
