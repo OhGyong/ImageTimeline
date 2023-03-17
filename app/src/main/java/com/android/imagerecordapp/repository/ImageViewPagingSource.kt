@@ -9,8 +9,7 @@ import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class ImageViewPagingSource @Inject constructor(private val database: ImageViewDatabase): PagingSource<Int, ImageViewData>() {
+class ImageViewPagingSource (private val database: ImageViewDatabase): PagingSource<Int, ImageViewData>() {
     override fun getRefreshKey(state: PagingState<Int, ImageViewData>): Int? {
         println("getRefreshKey $state")
         return state.anchorPosition?.let { anchorPosition ->
