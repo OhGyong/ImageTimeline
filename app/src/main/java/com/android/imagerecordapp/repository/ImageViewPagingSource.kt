@@ -6,8 +6,6 @@ import androidx.room.withTransaction
 import com.android.imagerecordapp.data.ImageViewData
 import com.android.imagerecordapp.data.ImageViewDatabase
 import java.io.IOException
-import javax.inject.Inject
-import javax.inject.Singleton
 
 class ImageViewPagingSource (private val database: ImageViewDatabase): PagingSource<Int, ImageViewData>() {
     override fun getRefreshKey(state: PagingState<Int, ImageViewData>): Int? {
