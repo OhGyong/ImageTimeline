@@ -16,6 +16,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.android.imagerecordapp.CustomTestRunner"
     }
 
     buildTypes {
@@ -49,6 +50,7 @@ dependencies {
     // Room 의존성 추가
     implementation "androidx.room:room-runtime:2.5.0"
     implementation "androidx.room:room-ktx:2.5.0"
+    testImplementation 'junit:junit:4.13.2'
     kapt "androidx.room:room-compiler:2.5.0"
 
     // Coroutines 의존성 추가
@@ -70,9 +72,13 @@ dependencies {
     // paging3
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
 
-    // hilt
+    // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // Hilt Test
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
