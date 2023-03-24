@@ -18,7 +18,4 @@ interface ImageViewDao {
 
     @Query("DELETE FROM imageviewdata WHERE img_uri = :imgUri")
     fun deleteData(imgUri: String)
-
-    @Query("SELECT COUNT(*) FROM imageviewdata")
-    fun getListSize(): Int
 }
