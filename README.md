@@ -16,11 +16,17 @@ https://user-images.githubusercontent.com/105263450/171398840-7fb105e5-db45-4820
 4. ~~사진 삭제 기능 → 사진 선택도 가능해야 함.~~
 5. ~~다크 모드 비활성화~~
 6. ~~Paging 3 적용~~
-7. Flow 적용
-8. ~~Hilt 적용~~
+7. ~~Hilt 적용~~
 
 
 ### 일정
+- 2023.03.22<br/>
+  Hilt 테스트 코드 적용
+  코드 정리 및 해야할 작업 목록에서 flow 제거
+
+- 2023.03.15~17<br/>
+  Hilt 적용
+
 - 2023.02.20<br/>
   스플래시 thread sleep에서 coroutine delay로 수정
 
