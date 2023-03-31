@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.android.imagerecordapp.adapter.MainImageAdapter
 import com.android.imagerecordapp.data.ImageViewData
 import com.android.imagerecordapp.databinding.ActivityMainBinding
@@ -51,6 +52,10 @@ class MainActivity : AppCompatActivity() {
          */
         mViewModel.insertObserve.observe(this) {
             println("이미지 삽입 호출 결과")
+            if(it.failure != null) {
+                println("이미지 삽입 실패 ${it.failure}")
+                return@observe
+            }
             mAdapter.refresh()
         }
 
@@ -58,6 +63,10 @@ class MainActivity : AppCompatActivity() {
          * 이미지 삭제 observe
          */
         mViewModel.deleteObserve.observe(this) {
+            if(it.failure != null) {
+                println("이미지 삭제 실패 ${it.failure}")
+                return@observe
+            }
             mAdapter.refresh()
         }
     }
@@ -71,6 +80,21 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             mViewModel.getImageListData().collectLatest {
                 mAdapter.submitData(lifecycle, it)
+            }
+        }
+
+        lifecycleScope.launch {
+            mAdapter.loadStateFlow.collectLatest { loadState ->
+                when (loadState.refresh) {
+                    is LoadState.Loading -> {
+                    }
+                    is LoadState.Error -> {
+                        // todo
+                        println("데이터 로딩 실패 처리 ${(loadState.refresh as LoadState.Error).error}")
+                    }
+                    else -> {
+                    }
+                }
             }
         }
 
