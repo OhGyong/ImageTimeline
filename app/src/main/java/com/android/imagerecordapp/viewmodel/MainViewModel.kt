@@ -18,8 +18,11 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val dao: ImageViewDao) : ViewModel() {
     @Inject lateinit var imageViewRepository: ImageViewRepository
 
-    val insertObserve: MutableLiveData<Unit> = MutableLiveData()
-    val deleteObserve: MutableLiveData<Unit> = MutableLiveData()
+    private val _insertObserve: MutableLiveData<Unit> = MutableLiveData()
+    val insertObserve = _insertObserve
+
+    private val _deleteObserve: MutableLiveData<Unit> = MutableLiveData()
+    val deleteObserve = _deleteObserve
 
     fun getImageListData() : Flow<PagingData<ImageViewData>> {
         return imageViewRepository.getImageViewPagingSource().cachedIn(viewModelScope)
@@ -28,14 +31,14 @@ class MainViewModel @Inject constructor(private val dao: ImageViewDao) : ViewMod
     // 데이터 베이스에 사진 정보 저장
     fun inputImageData(date: String, uri: String ){
         viewModelScope.launch(Dispatchers.IO){
-            insertObserve.postValue(dao.insertData(ImageViewData(date, uri)))
+            _insertObserve.postValue(dao.insertData(ImageViewData(date, uri)))
         }
     }
 
     // 사진 삭제
     fun deleteImageData(uri: String){
         viewModelScope.launch(Dispatchers.IO) {
-            deleteObserve.postValue(dao.deleteData(uri))
+            _deleteObserve.postValue(dao.deleteData(uri))
         }
     }
 }
