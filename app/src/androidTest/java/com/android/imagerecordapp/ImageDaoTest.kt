@@ -7,9 +7,6 @@ import androidx.test.filters.SmallTest
 import com.android.imagerecordapp.data.ImageViewDao
 import com.android.imagerecordapp.data.ImageViewData
 import com.android.imagerecordapp.data.ImageViewDatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
@@ -37,10 +34,18 @@ class ImageDaoTest {
     }
 
     @Test
-    fun test() = runBlocking {
+    fun selectTest() {
+        val list = imageDao.selectAll(1)
+        println(list)
+    }
+    @Test
+    fun insertTest() = runBlocking {
         val imageData = ImageViewData("2022-12-12", "uri")
-        CoroutineScope(Dispatchers.IO).launch {
-            imageDao.insertData(imageData)
-        }.join()
+        imageDao.insertImage(imageData)
+    }
+
+    @Test
+    fun deleteTest() {
+        imageDao.deleteImage("uri")
     }
 }
