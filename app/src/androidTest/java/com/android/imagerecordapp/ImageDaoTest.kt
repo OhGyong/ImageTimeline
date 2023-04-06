@@ -35,8 +35,7 @@ class ImageDaoTest {
 
     @Test
     fun selectTest() {
-        val list = imageDao.selectAll(1)
-        println(list)
+        imageDao.selectAll(1)
     }
     @Test
     fun insertTest() = runBlocking {
