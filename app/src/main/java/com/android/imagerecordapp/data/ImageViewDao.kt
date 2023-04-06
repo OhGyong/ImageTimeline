@@ -9,7 +9,7 @@ import androidx.room.*
 @Dao
 interface ImageViewDao {
     @Query("SELECT * FROM imageviewdata ORDER BY date ASC LIMIT 10 OFFSET (:page-1)*10")
-    fun getAll(page: Int): List<ImageViewData>
+    fun sellectAll(page: Int): List<ImageViewData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertData(imageViewData: ImageViewData)
