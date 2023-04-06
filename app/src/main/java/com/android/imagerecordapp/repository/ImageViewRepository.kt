@@ -33,7 +33,7 @@ class ImageViewRepository @Inject constructor(
         val baseResult = BaseResult()
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                baseResult.success = dao.insertData(ImageViewData(date, uri))
+                baseResult.success = dao.insertImage(ImageViewData(date, uri))
             }catch (e: Exception) {
                 baseResult.failure = e
             }
@@ -45,7 +45,7 @@ class ImageViewRepository @Inject constructor(
         val baseResult = BaseResult()
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                baseResult.success = dao.deleteData(uri)
+                baseResult.success = dao.deleteImage(uri)
             }catch (e: Exception) {
                 baseResult.failure = e
             }

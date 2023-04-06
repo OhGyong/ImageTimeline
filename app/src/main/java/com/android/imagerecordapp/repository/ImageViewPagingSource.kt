@@ -22,7 +22,7 @@ class ImageViewPagingSource (private val database: ImageViewDatabase): PagingSou
             var data: List<ImageViewData>? = null
 
             database.withTransaction {
-                data = database.imageViewDao().sellectAll(page)
+                data = database.imageViewDao().selectAll(page)
             }
 
             LoadResult.Page(

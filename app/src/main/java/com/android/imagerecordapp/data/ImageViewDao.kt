@@ -9,13 +9,13 @@ import androidx.room.*
 @Dao
 interface ImageViewDao {
     @Query("SELECT * FROM imageviewdata ORDER BY date ASC LIMIT 10 OFFSET (:page-1)*10")
-    fun sellectAll(page: Int): List<ImageViewData>
+    fun selectAll(page: Int): List<ImageViewData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertData(imageViewData: ImageViewData)
+    fun insertImage(imageViewData: ImageViewData)
 //    @Query("INSERT INTO imageviewdata VALUES(:date, :uri)")
 //    fun insertData(date: String, uri: String)
 
     @Query("DELETE FROM imageviewdata WHERE img_uri = :imgUri")
-    fun deleteData(imgUri: String)
+    fun deleteImage(imgUri: String)
 }
