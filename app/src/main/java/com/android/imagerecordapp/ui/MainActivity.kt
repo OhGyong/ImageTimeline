@@ -1,8 +1,8 @@
 package com.android.imagerecordapp.ui
 
 import android.content.Intent
-import android.database.Cursor
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.ContextMenu
 import android.view.View
 import android.widget.Toast
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
     private fun setClickListener() {
         // 이미지 추가 버튼
         mBinding.ibAdd.setOnClickListener {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             imageAddResultListener.launch(intent)
         }
@@ -136,23 +136,28 @@ class MainActivity : AppCompatActivity() {
      * 갤러리 불러오기
      */
     private val imageAddResultListener =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             // 사진 선택 취소할 경우
-            if(it.resultCode == RESULT_CANCELED){
+            if (it.resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show()
-            }else{
-                val uri = it.data!!.data!!
-
-                // 권한 허용으로 에러 처리.
-                contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-
-                val cursor: Cursor = contentResolver.query(uri,null,null,null,null)!!
-                cursor.moveToFirst()
-                val path = cursor.getLong(3) // 날짜 정보
-
-                // 데이터 베이스에 사진 정보 저장
-                mViewModel.inputImageData(Date(path).toString(), uri.toString())
+            } else {
+                it.data?.data.let { uri ->
+                    if(uri == null) {
+                        // todo : uri 정보 못구함
+                    } else {
+                        contentResolver.query(uri, null, null, null, null).let {cursor ->
+                            if(cursor == null) {
+                                // todo : 사진 데이터 못구함
+                            } else {
+                                cursor.moveToFirst()
+                                val date = Date(
+                                    cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.DATE_TAKEN))
+                                ).toString()
+                                mViewModel.inputImageData(date, uri.toString())
+                            }
+                        }
+                    }
+                }
             }
         }
 
