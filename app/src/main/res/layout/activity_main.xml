@@ -20,11 +20,13 @@
             android:text="@string/list_empty_desc"
             android:textStyle="bold"
             android:textSize="20dp"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:visibility="visible"/>
+            tools:visibility="visible"
+            tools:ignore="SpUsage" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_main"
