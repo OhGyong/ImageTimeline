@@ -5,11 +5,11 @@ import androidx.paging.PagingState
 import androidx.room.withTransaction
 import com.android.imagerecordapp.data.ImageViewData
 import com.android.imagerecordapp.data.ImageViewDatabase
+import kotlinx.coroutines.delay
 import java.io.IOException
 
 class ImageViewPagingSource (private val database: ImageViewDatabase): PagingSource<Int, ImageViewData>() {
     override fun getRefreshKey(state: PagingState<Int, ImageViewData>): Int? {
-        println("getRefreshKey $state")
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
@@ -18,6 +18,7 @@ class ImageViewPagingSource (private val database: ImageViewDatabase): PagingSou
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ImageViewData> {
         val page = params.key ?: STARTING_PAGE
+        delay(2000)
         return try {
             var data: List<ImageViewData>? = null
 

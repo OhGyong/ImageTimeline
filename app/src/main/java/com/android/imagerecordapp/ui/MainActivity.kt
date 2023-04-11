@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.android.imagerecordapp.adapter.MainImageAdapter
@@ -69,6 +70,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun setAdapter() {
         mBinding.rvMain.adapter = mAdapter
+
+        /**
+         * 리스트가 refresh 상태일 때 로딩 처리
+         */
+        lifecycleScope.launch {
+            mAdapter.loadStateFlow.collectLatest { loadState ->
+                mBinding.pbMainLoading.isVisible = loadState.refresh is LoadState.Loading
+            }
+        }
 
         /**
          * 이미지 리스트 flow
