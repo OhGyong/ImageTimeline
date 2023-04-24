@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.animation.AnticipateInterpolator
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -30,23 +31,19 @@ class SplashActivity : AppCompatActivity() {
         /**
          * 스플래시 탐지
          */
-//        val content: View = findViewById(android.R.id.content)
-//        content.viewTreeObserver.addOnPreDrawListener(
-//            object : ViewTreeObserver.OnPreDrawListener {
-//                override fun onPreDraw(): Boolean {
-//                    return if (!mViewModel.isLoading.value) {
-//                        content.viewTreeObserver.removeOnPreDrawListener(this)
-//                        val intent = Intent(applicationContext, MainActivity::class.java)
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-//                        startActivity(intent)
-//                        finish()
-//                        true
-//                    } else {
-//                        false
-//                    }
-//                }
-//            }
-//        )
+        val content: View = findViewById(android.R.id.content)
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    return if (!mViewModel.isLoading.value) {
+                        content.viewTreeObserver.removeOnPreDrawListener(this)
+                        true
+                    } else {
+                        false
+                    }
+                }
+            }
+        )
 
         /**
          * 스플래시 끝나고 애니메이션 적용

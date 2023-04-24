@@ -16,6 +16,8 @@
         <!-- 앱 바 없애기 -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <item name="android:windowSplashScreenAnimatedIcon">@mipmap/app_icon_launcher</item>
     </style>
 
     <style name="Theme.ImageRecordApp.Splash" parent="Theme.SplashScreen">
