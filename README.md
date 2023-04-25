@@ -1,7 +1,7 @@
 # Image_Record_App
 갤러리의 사진을 올리면 날짜별로 정렬하여 보여주는 앱.(몸무게 사진 찍어놓은 것을 날짜별로 기록하려고 시작)
 
-https://user-images.githubusercontent.com/105263450/171398840-7fb105e5-db45-4820-be09-9e9f431c75d6.mp4
+https://user-images.githubusercontent.com/52282493/234147501-44640c42-0efa-46cb-a8d1-f1e3b84604e2.mov
 
 ### 사용 기술
 - ContentResolver
