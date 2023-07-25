@@ -10,6 +10,7 @@ import com.android.imagerecordapp.data.ImageViewDatabase
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -35,8 +36,11 @@ class ImageDaoTest {
 
     @Test
     fun selectTest() {
-        imageDao.selectAll(1)
+        runBlocking {
+            imageDao.selectAll(1)
+        }
     }
+
     @Test
     fun insertTest() = runBlocking {
         val imageData = ImageViewData("2022-12-12", "uri")
@@ -45,6 +49,8 @@ class ImageDaoTest {
 
     @Test
     fun deleteTest() {
-        imageDao.deleteImage("uri")
+        runBlocking {
+            imageDao.deleteImage("uri")
+        }
     }
 }
