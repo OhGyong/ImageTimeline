@@ -18,7 +18,9 @@ class ImageViewPagingSource (private val database: ImageViewDatabase): PagingSou
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ImageViewData> {
         val page = params.key ?: STARTING_PAGE
-        delay(2000)
+
+        // todo : Delay
+//        delay(2000)
         return try {
             var data: List<ImageViewData>? = null
 
