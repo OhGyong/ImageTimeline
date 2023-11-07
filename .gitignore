@@ -38,6 +38,3 @@ google-services.json
 
 ### Android Patch ###
 gen-external-apklibs
-
-gradle.properties
-/gradle/wrapper/gradle-wrapper.properties
