@@ -1,11 +1,10 @@
-package com.android.imagerecordapp.repository
+package com.android.imagetimeline.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.room.withTransaction
-import com.android.imagerecordapp.data.ImageViewData
-import com.android.imagerecordapp.data.ImageViewDatabase
-import kotlinx.coroutines.delay
+import com.android.imagetimeline.data.ImageViewData
+import com.android.imagetimeline.data.ImageViewDatabase
 import java.io.IOException
 
 class ImageViewPagingSource (private val database: ImageViewDatabase): PagingSource<Int, ImageViewData>() {

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="imageViewItem"
-            type="com.android.imagerecordapp.data.ImageViewData" />
+            type="com.android.imagetimeline.data.ImageViewData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

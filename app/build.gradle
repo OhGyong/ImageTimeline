@@ -10,14 +10,14 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.android.imagerecordapp"
+        applicationId "com.android.imagetimeline"
         minSdk 31
         targetSdk 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunner "com.android.imagerecordapp.CustomTestRunner"
+        testInstrumentationRunner "com.android.imagetimeline.CustomTestRunner"
     }
 
     buildTypes {
@@ -38,7 +38,7 @@ android {
     buildFeatures {
         dataBinding true
     }
-    namespace 'com.android.imagerecordapp'
+    namespace 'com.android.imagetimeline'
 }
 
 dependencies {

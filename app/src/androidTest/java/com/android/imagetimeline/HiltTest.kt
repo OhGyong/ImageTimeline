@@ -1,4 +1,4 @@
-package com.android.imagerecordapp
+package com.android.imagetimeline
 
 import android.app.Application
 import android.content.Context

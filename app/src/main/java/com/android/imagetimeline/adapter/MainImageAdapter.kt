@@ -1,4 +1,4 @@
-package com.android.imagerecordapp.adapter
+package com.android.imagetimeline.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.android.imagerecordapp.data.ImageViewData
-import com.android.imagerecordapp.databinding.ImageViewItemBinding
+import com.android.imagetimeline.data.ImageViewData
+import com.android.imagetimeline.databinding.ImageViewItemBinding
 import javax.inject.Inject
 
 class MainImageAdapter @Inject constructor() : PagingDataAdapter<ImageViewData, MainImageAdapter.MainImageViewHolder>(ARTICLE_DIFF_CALLBACK) {

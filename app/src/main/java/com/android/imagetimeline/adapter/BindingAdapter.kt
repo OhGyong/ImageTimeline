@@ -1,8 +1,8 @@
-package com.android.imagerecordapp.adapter
+package com.android.imagetimeline.adapter
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.android.imagerecordapp.R
+import com.android.imagetimeline.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners

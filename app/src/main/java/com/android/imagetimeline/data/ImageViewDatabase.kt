@@ -1,4 +1,4 @@
-package com.android.imagerecordapp.data
+package com.android.imagetimeline.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

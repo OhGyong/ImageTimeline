@@ -1,4 +1,4 @@
-package com.android.imagerecordapp.util
+package com.android.imagetimeline.util
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

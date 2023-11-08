@@ -1,4 +1,4 @@
-package com.android.imagerecordapp.viewmodel
+package com.android.imagetimeline.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

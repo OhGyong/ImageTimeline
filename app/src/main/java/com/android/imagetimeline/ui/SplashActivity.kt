@@ -1,4 +1,4 @@
-package com.android.imagerecordapp.ui
+package com.android.imagetimeline.ui
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.android.imagerecordapp.R
-import com.android.imagerecordapp.viewmodel.SplashViewModel
+import com.android.imagetimeline.R
+import com.android.imagetimeline.viewmodel.SplashViewModel
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {

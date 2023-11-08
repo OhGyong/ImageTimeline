@@ -1,4 +1,4 @@
-package com.android.imagerecordapp.ui
+package com.android.imagetimeline.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,10 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import com.android.imagerecordapp.adapter.MainImageAdapter
-import com.android.imagerecordapp.data.ImageViewData
-import com.android.imagerecordapp.databinding.ActivityMainBinding
-import com.android.imagerecordapp.viewmodel.MainViewModel
+import com.android.imagetimeline.adapter.MainImageAdapter
+import com.android.imagetimeline.data.ImageViewData
+import com.android.imagetimeline.databinding.ActivityMainBinding
+import com.android.imagetimeline.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

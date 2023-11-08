@@ -1,9 +1,9 @@
-package com.android.imagerecordapp.di
+package com.android.imagetimeline.di
 
 import android.content.Context
 import androidx.room.Room
-import com.android.imagerecordapp.data.ImageViewDao
-import com.android.imagerecordapp.data.ImageViewDatabase
+import com.android.imagetimeline.data.ImageViewDao
+import com.android.imagetimeline.data.ImageViewDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

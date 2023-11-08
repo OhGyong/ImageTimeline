@@ -1,4 +1,4 @@
-package com.android.imagerecordapp.data
+package com.android.imagetimeline.data
 
 data class BaseResult(
     var success: Unit? = null,

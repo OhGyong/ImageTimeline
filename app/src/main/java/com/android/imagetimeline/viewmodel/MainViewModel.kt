@@ -1,13 +1,13 @@
-package com.android.imagerecordapp.viewmodel
+package com.android.imagetimeline.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.android.imagerecordapp.data.BaseResult
-import com.android.imagerecordapp.data.ImageViewData
-import com.android.imagerecordapp.repository.ImageViewRepository
+import com.android.imagetimeline.data.BaseResult
+import com.android.imagetimeline.data.ImageViewData
+import com.android.imagetimeline.repository.ImageViewRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

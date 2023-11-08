@@ -1,12 +1,12 @@
-package com.android.imagerecordapp.repository
+package com.android.imagetimeline.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.android.imagerecordapp.data.BaseResult
-import com.android.imagerecordapp.data.ImageViewDao
-import com.android.imagerecordapp.data.ImageViewData
-import com.android.imagerecordapp.data.ImageViewDatabase
+import com.android.imagetimeline.data.BaseResult
+import com.android.imagetimeline.data.ImageViewDao
+import com.android.imagetimeline.data.ImageViewData
+import com.android.imagetimeline.data.ImageViewDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
