@@ -1,5 +1,5 @@
-# Image_Record_App
-갤러리의 사진을 올리면 날짜별로 정렬하여 보여주는 앱.
+# ImageTimeline
+갤러리의 사진을 등록하면 날짜별로 정렬하여 보여주는 앱.
 
 https://user-images.githubusercontent.com/52282493/234147501-44640c42-0efa-46cb-a8d1-f1e3b84604e2.mov
 
